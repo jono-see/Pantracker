@@ -13,7 +13,7 @@ console.log(MONGO_URL);
 mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useUnifiedTopology: false,
+  useUnifiedTopology: true,
   useFindAndModify: false,
   dbName: "INFO30005_Pantracker"
 });
