@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // GET home page
 app.get("/", (req, res) => {
-  res.send("<H1>Library System</H1>");
+  res.send("<H1>Team Pantracker</H1>");
 });
 
 // handle author-management related requests
