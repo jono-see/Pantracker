@@ -15,7 +15,7 @@ mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-  dbName: "mylibraryapp"
+  dbName: "INFO30005_Pantracker"
 });
 
 const db = mongoose.connection;
