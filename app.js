@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // GET home page
 app.get("/", (req, res) => {
-  res.send("<H1>Team Pantracker</H1>");
+  res.render('views/index.html');
 });
 
 // handle author-management related requests
