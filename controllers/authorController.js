@@ -6,13 +6,14 @@ const Author = mongoose.model("author");
     
 // function to handle a request to get all authors
 const getAllAuthors = async (req, res) => {
-    
+  res.send("<H1>All products listed here</H1>");
   try {
     const all_authors = await Author.find();
     return res.send(all_authors);
   } catch (err) {
     res.status(400);
     return res.send("Database query failed");
+
   }
 };
     

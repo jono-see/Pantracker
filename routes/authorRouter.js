@@ -8,9 +8,8 @@ const authorController = require("../controllers/authorController.js");
 
 // handle the GET request on root of the author-management path
 // i.e. get all authors
-router.get("/", (req, res) => {
-    res.send("<H1>All products listed here</H1>");
-});
+router.get("/", authorController.getAllAuthors);
+
 
 // handle the GET request to get an author by ID
 // note that :id refers to a param, accessed by req.params.id in controller fn
