@@ -62,7 +62,6 @@ https://expressjs.com/en/guide/writing-middleware.html
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use() is intended for binding middleware to your application.
