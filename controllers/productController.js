@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
 // import author model
 //const Product = mongoose.model("product");
