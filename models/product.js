@@ -24,7 +24,7 @@ module.exports = [
     "id:": "1003",
     "product_name": "bananas",
     "total_rating": "2",
-  }
+  },
   {
     "id:": "2001",
     "product_name": "toilet paper",
