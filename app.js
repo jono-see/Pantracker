@@ -18,10 +18,10 @@ app.get("/", (req, res) => {
 
 // handle author-management related requests
 // first import the author router
-const authorRouter = require("./routes/authorRouter");
+const router = require("./routes/authorRouter");
 
 // the author routes are added onto the end of '/author-management'
-app.use("/author-management", authorRouter);
+app.use("/product-id", router);
 
 // start app and listen for incoming requests on port
 app.listen(process.env.PORT || 3000, () => {
