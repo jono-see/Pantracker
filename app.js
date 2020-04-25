@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 // first import the author router
 const router = require("./routes/productRouter");
 
-// the author routes are added onto the end of '/author-management'
+// the product routes are added onto the end of '/author-management'
 app.use("/product-id", router);
 
 // start app and listen for incoming requests on port
