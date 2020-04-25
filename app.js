@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+var path = require('path');
 
 const app = express();
 
@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("<H1>Team Pantracker</H1>");
 });
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 // handle author-management related requests
 // first import the author router
