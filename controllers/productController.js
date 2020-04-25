@@ -39,7 +39,16 @@ const addProduct = async (req, res) => {
 
 // function to get author by id
 const getProductByID = (req, res) => {
-  res.send("Working on this feature");
+// search for author in the database via ID
+  const product = products.find(product => product.id === req.params.id);
+  if (product){
+    res.send(product); // send back the author details
+  }
+  else{
+// you can decide what to return if author is not found
+// currently, an empty list will be return.
+    res.send("<p> Product not found </p>");
+  }
 };
 
 // remember to export the functions
