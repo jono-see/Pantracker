@@ -11,22 +11,22 @@ module.exports = Product;*/
 
 module.exports = [
   {
-    "id:": "1001",
+    "id": "1001",
     "product_name": "apples",
     "total_rating": "0",
   },
   {
-    "id:": "1002",
+    "id": "1002",
     "product_name": "oranges",
     "total_rating": "1",
   },
   {
-    "id:": "1003",
+    "id": "1003",
     "product_name": "bananas",
     "total_rating": "2",
   },
   {
-    "id:": "2001",
+    "id": "2001",
     "product_name": "toilet paper",
     "total_rating": "-999",
   }
