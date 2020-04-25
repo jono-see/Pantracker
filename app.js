@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // GET home page
 app.get("/", (req, res) => {
-  res.render('views/index.html');
+  res.render('./views/index.html');
 });
 
 // handle author-management related requests
