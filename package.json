@@ -15,7 +15,11 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.10",
     "morgan": "^1.10.0",
-    "http-errors": "latest"
+    "http-errors": "latest",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "faker": "^4.1.0",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "cookie-parser": "^1.4.5"
