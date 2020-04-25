@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
   res.send("<H1>Team Pantracker</H1>");
 });
 
-
 // handle author-management related requests
 // first import the author router
 const productRouter = require("./routes/productRouter");
