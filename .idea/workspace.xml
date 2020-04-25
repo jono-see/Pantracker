@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8acb5bed-e549-4b06-a216-b9b5031db442" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/models/1001.html" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/1001.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/productRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/productRouter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +17,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -54,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1587598860089</updated>
       <workItem from="1587598861339" duration="421000" />
-      <workItem from="1587600201253" duration="10809000" />
+      <workItem from="1587600201253" duration="11911000" />
     </task>
     <servers />
   </component>
