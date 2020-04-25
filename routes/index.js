@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render("./routes/index", { title: 'Lecture5 Node&Express' });
+    res.render("./views/index.html", { title: 'Lecture5 Node&Express' });
 });
 
 module.exports = router;
