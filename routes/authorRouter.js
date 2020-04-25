@@ -1,9 +1,7 @@
-import * as res from "express";
-
-var express = require("express");
+const express = require("express");
 
 // create router
-var router = express.Router();
+const router = express.Router();
 
 // load/import the author controller
 const authorController = require("../controllers/authorController.js");
