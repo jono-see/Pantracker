@@ -42,7 +42,7 @@ const getProductByID = (req, res) => {
 // search for author in the database via ID
   const product = products.find(product => product.id === req.params.id);
   if (product){
-    res.render("1001"); // send back the author details
+    res.send(product); // send back the author details
   }
   else{
 // you can decide what to return if author is not found
