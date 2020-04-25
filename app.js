@@ -30,11 +30,11 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("The library app is running!");
 });*/
 
-var createError = require('http-errors');
+//var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+//var cookieParser = require('cookie-parser');
+//var logger = require('morgan');
 
 /* router is also known as a mini-app
 With routers you can modularize your code more easily. You can use routers as:
@@ -58,10 +58,10 @@ Middleware functions:
 Something you would do before passing the request to handlers.
 https://expressjs.com/en/guide/writing-middleware.html
 */
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use() is intended for binding middleware to your application.
@@ -70,19 +70,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.all(/^\/.*/, function (req, res) { res.send('Hello');
 // });
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 
 app.get('/', function(req,res){
   res.send("Hello World");
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   next(createError(404));
-});
+});*/
 
 // error handler
-app.use(function(err, req, res, next) {
+/*app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -90,6 +90,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+});*/
 
 module.exports = app;
