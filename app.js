@@ -19,8 +19,8 @@ app.get("/", (req, res) => {
 
 // handle author-management related requests
 // first import the author router
-const productRouter = require("./routes/productRouter");
-const router = require("./routes/index");
+var productRouter = require("./routes/productRouter");
+var router = require("./routes/index");
 
 // the product routes are added onto the end of '/author-management'
 app.use("/product-id", productRouter);
