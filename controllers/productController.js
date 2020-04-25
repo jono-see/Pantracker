@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // import author model
-const Product = mongoose.model("product");
+//const Product = mongoose.model("product");
 
     
 // function to handle a request to get all authors
