@@ -10,7 +10,7 @@ const authorController = require("../controllers/authorController.js");
 // i.e. get all authors
 router.get("/", (req, res) => {
     res.send("<H1>All products listed here</H1>");
-};
+});
 
 // handle the GET request to get an author by ID
 // note that :id refers to a param, accessed by req.params.id in controller fn
