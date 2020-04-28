@@ -5,11 +5,11 @@ extends layout
      h2 Login
      h3 Error: #{error}
 
-     form(method="POST" action="/users/login")
+     form(method="POST" action="/search")
          div
-             label User Name:
-             input(type='text', placeholder='first and last' name='username')
+             label Product:
+             input(type='text', placeholder='apple' name='product')
          div
-             label Password:
-             input(type='password', name='password')
+             label Postcode:
+             input(type='password', name='postcode')
          button(type='submit') Login
