@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    head
+        title= title
+    body
+        h1 storename is #{title}
+        h1= accurateYes
+        h1= accurateNo
+        button(type='button' onclick='increaseYes(#{store})') Yes
+        button(type='button') No
