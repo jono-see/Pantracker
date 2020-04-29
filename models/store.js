@@ -4,7 +4,7 @@ module.exports = [
         "name":"Woolworths - Bourke St Metro",
         "lat":-37.815699,
         "long":144.955957,
-        "address":"600 Bourke St, Melbourne VIC 3000"
+        "address":"600 Bourke St, Melbourne VIC 3000",
         "accurateYes":13,
         "accurateNo":2
     },
@@ -13,7 +13,7 @@ module.exports = [
         "name":"Woolworths - Yarraville Metro",
         "lat":-37.816340,
         "long":144.891670,
-        "address":"4-6 Anderson St, Yarraville VIC 3013"
+        "address":"4-6 Anderson St, Yarraville VIC 3013",
         "accurateYes":13,
         "accurateNo":2
     },
@@ -22,7 +22,7 @@ module.exports = [
         "name":"Woolworths - Hampton",
         "lat":-37.936874,
         "long":145.001989,
-        "address":"355-363 Hampton St, Hampton VIC 3188"
+        "address":"355-363 Hampton St, Hampton VIC 3188",
         "accurateYes":13,
         "accurateNo":2
     },
@@ -31,7 +31,7 @@ module.exports = [
         "name":"Coles - Northland",
         "lat":-37.737971,
         "long":145.029545,
-        "address":"2/50 Murray Rd, Preston VIC 3072"
+        "address":"2/50 Murray Rd, Preston VIC 3072",
         "accurateYes":10,
         "accurateNo":3
     },
@@ -40,7 +40,7 @@ module.exports = [
         "name":"Coles - Middle Camberwell",
         "lat":-37.833146,
         "long":145.077529,
-        "address":"751 Riversdale Road, Camberwell VIC 3124"
+        "address":"751 Riversdale Road, Camberwell VIC 3124",
         "accurateYes":18,
         "accurateNo":10
     },
@@ -49,7 +49,7 @@ module.exports = [
         "name":"Coles - Malvern",
         "lat":-37.859913,
         "long":145.029068,
-        "address":"164-178 Glenferrie Rd, Malvern VIC 3144"
+        "address":"164-178 Glenferrie Rd, Malvern VIC 3144",
         "accurateYes":30,
         "accurateNo":30
     }
