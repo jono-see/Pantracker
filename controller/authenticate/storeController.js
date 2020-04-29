@@ -63,7 +63,7 @@ const displayMap = (req, res) => {
 */
 
 // Gets the 3 closest stores to the postcode provided
-const listStores = (req, res) => {
+const listStoresByPostcode = (req, res) => {
     var address = req.params.id + "+VIC+Australia";
     var url = URL_BASE + address + "&key=" + API_KEY;
     var coords = [];
@@ -83,6 +83,10 @@ const listStores = (req, res) => {
         });
 };
 
+const listStores = (req, res) => {
+    var store_id = req.params.id;
+}
+
 const storeID = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
 
@@ -94,5 +98,6 @@ const storeID = (req, res) => {
 module.exports = {
 //    displayMap,
     listStores,
-    storeID
+    storeID,
+    listStoresByPostcode
 };
