@@ -96,11 +96,18 @@ const listStores = (req, res) => {
 
 const storeID = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
+    const store_name = store.name;
+    const acc_yes = store.accurateYes;
+    const acc_no = store.accurateNo;
 
     if(store) {
-        res.send(store);
+        res.render('storePage', { title: store_name, accurateYes: acc_yes, accurateNo: acc_no, store: store })
     }
 };
+
+function increaseYes(store) {
+    store.accurateYes = 10;
+}
 
 module.exports = {
 //    displayMap,
