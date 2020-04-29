@@ -14,6 +14,7 @@ With routers you can modularize your code more easily. You can use routers as:
 */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var storeRouter = require("./routes/storeRouter");
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  // });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/stores", storeRouter);
 
 app.get('/', function(req,res){
   res.send("Hello World");
