@@ -83,7 +83,16 @@ const listStores = (req, res) => {
         });
 };
 
+const storeID = (req, res) => {
+    const store = stores.find(store => store.id == req.params.id);
+
+    if(store) {
+        res.send(store);
+    }
+};
+
 module.exports = {
 //    displayMap,
-    listStores
+    listStores,
+    storeID
 };
