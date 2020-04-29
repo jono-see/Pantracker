@@ -21,7 +21,7 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Calculates the distance from coordinates to each store then returns closest stores
-function distanceMatrix(lat,long){
+function distanceMatrix(lat,long,store_id=-1){
     var i;
     var dist;
     var all_dist = [];
@@ -30,7 +30,9 @@ function distanceMatrix(lat,long){
     // Calculate the distance to each store
     for (i = 0; i < stores.length; i++) {
         dist = haversineDistance(lat,long,stores[i]["lat"],stores[i]["long"]);
-        all_dist.push([stores[i]["id"],dist]);
+        if (stores[i]["id"] != store_id) {
+            all_dist.push([stores[i]["id"],dist]);
+        }
     }
 
     // Sort list into ascending distance order
@@ -84,7 +86,12 @@ const listStoresByPostcode = (req, res) => {
 };
 
 const listStores = (req, res) => {
-    var store_id = req.params.id;
+    const curr_store = stores.find(store => store.id == req.params.id);
+    var closest_stores;
+    var coords = [];
+
+    closest_stores = distanceMatrix(curr_store["lat"],curr_store["long"],curr_store["id"]);
+    res.send(closest_stores);
 }
 
 const storeID = (req, res) => {
