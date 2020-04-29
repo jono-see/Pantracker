@@ -4,11 +4,11 @@ async function scrapeOfficeworks(prod, pcode) {
 
     let puppeteerArgs = [
         '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-infobars',
-        '--window-position=0,0',
-        '--ignore-certifcate-errors',
-        '--ignore-certifcate-errors-spki-list',
+        // '--disable-setuid-sandbox',
+        // '--disable-infobars',
+        // '--window-position=0,0',
+        // '--ignore-certifcate-errors',
+        // '--ignore-certifcate-errors-spki-list',
         '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
     ];
 
@@ -21,7 +21,7 @@ async function scrapeOfficeworks(prod, pcode) {
     let search_url = "https://www.officeworks.com.au/shop/officeworks/search?q=" + product_name;
 
     let browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: puppeteerArgs
     });
 
