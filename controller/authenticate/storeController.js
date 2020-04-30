@@ -105,12 +105,13 @@ const storeID = (req, res) => {
     }
 };
 
-
+/* Increases the yes value*/
 const increaseYes = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     store.accurateYes++;
 };
 
+/* Increases the no value*/
 const increaseNo = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     store.accurateNo++;
