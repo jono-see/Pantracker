@@ -10,5 +10,7 @@ const storeController = require("../controller/authenticate/storeController.js")
 storeRouter.get("/:id", storeController.storeID);
 storeRouter.get("/:id/closest", storeController.listStores);
 storeRouter.get("/postcode/:id/", storeController.listStoresByPostcode);
+storeRouter.post("/:id/plus", storeController.increaseYes);
+storeRouter.post("/:id/minus", storeController.increaseNo);
 
 module.exports = storeRouter;

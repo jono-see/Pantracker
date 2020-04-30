@@ -105,13 +105,20 @@ const storeID = (req, res) => {
     }
 };
 
-function increaseYes(store) {
-    store.accurateYes = 10;
-}
+
+const increaseYes = (req, res) => {
+
+};
+
+const increaseNo = (req, res) => {
+
+};
 
 module.exports = {
 //    displayMap,
     listStores,
     storeID,
-    listStoresByPostcode
+    listStoresByPostcode,
+    increaseYes,
+    increaseNo
 };
