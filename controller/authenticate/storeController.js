@@ -107,11 +107,13 @@ const storeID = (req, res) => {
 
 
 const increaseYes = (req, res) => {
-
+    const store = stores.find(store => store.id == req.params.id);
+    store.accurateYes++;
 };
 
 const increaseNo = (req, res) => {
-
+    const store = stores.find(store => store.id == req.params.id);
+    store.accurateNo++;
 };
 
 module.exports = {
