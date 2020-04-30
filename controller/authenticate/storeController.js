@@ -99,7 +99,7 @@ const storeID = (req, res) => {
     const store_name = store.name;
     const acc_yes = store.accurateYes;
     const acc_no = store.accurateNo;
-    const percent = (acc_yes)/(acc_no + acc_yes);
+    const percent = (acc_yes)/(acc_no + acc_yes) * 100;
 
     if(store) {
         res.render('storePage', { title: store_name, accurateYes: acc_yes,
@@ -112,7 +112,7 @@ const increaseYes = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     if (store) {
         store.accurateYes++;
-        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo);
+        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo) * 100;
         res.render('storePage', { title: store.name, accurateYes: store.accurateYes,
             accurateNo: store.accurateNo, percent: percent, store: store })
     }
@@ -123,7 +123,7 @@ const increaseNo = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     if (store){
         store.accurateNo++;
-        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo);
+        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo) * 100;
         res.render('storePage', { title: store.name, accurateYes: store.accurateYes,
             accurateNo: store.accurateNo, percent: percent, store: store })
     }
