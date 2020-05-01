@@ -13,7 +13,7 @@ Can be accessed through this URL:
 https://info30005-pantracker.herokuapp.com/stores/postcode/<postcode>
 
 
-### Note on URL parameters
+### URL parameters
 
 \<id\> - store id, any number between 1 and 6 for this sample data
 
