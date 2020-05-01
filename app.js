@@ -13,7 +13,6 @@ With routers you can modularize your code more easily. You can use routers as:
 5. Validates a parameter passed to a certain route
 */
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var storeRouter = require("./routes/storeRouter");
 
 var app = express();
