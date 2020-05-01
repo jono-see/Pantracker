@@ -54,6 +54,18 @@ function distanceMatrix(lat,long,store_id=-1){
     return closest_dist;
 }
 
+// Increases either the accurateYes or accurateNo values in the data
+function changeValue(id, to_change) {
+    var i;
+    for (i = 0; i < stores.length; i++) {
+        if (stores[i]["id"] == id) {
+            stores[i][to_change] += 1;
+            return;
+        }
+    }
+    return;
+}
+
 /*
 const displayMap = (req, res) => {
     var address = req.params.id + ", VIC, Australia"
@@ -113,7 +125,7 @@ const storeID = (req, res) => {
 
     // Ensures that a valid store id is given before listing
     if (!store) {
-        res.send("Not a valid store id");
+        res.send("Invalid store id");
     } else {
         const store_name = store.name;
         const acc_yes = store.accurateYes;
@@ -127,25 +139,27 @@ const storeID = (req, res) => {
     }
 };
 
-// Increases the yes value
+// Increases the yes accuracy value
 const increaseYes = (req, res) => {
-    const store = stores.find(store => store.id == req.params.id);
+    var store_id = req.params.id;
+    const store = stores.find(store => store.id == store_id);
     if (store) {
-        store.accurateYes++;
-        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo) * 100;
-        res.render('storePage', { title: store.name, accurateYes: store.accurateYes,
-            accurateNo: store.accurateNo, percent: percent, store: store })
+        changeValue(store_id, "accurateYes");
+        res.redirect("/stores/" + store_id);
+    } else {
+        res.send("Invalid store id");
     }
 };
 
-// Increases the no value
+// Increases the no accuracy value
 const increaseNo = (req, res) => {
-    const store = stores.find(store => store.id == req.params.id);
-    if (store){
-        store.accurateNo++;
-        const percent = (store.accurateYes)/(store.accurateYes + store.accurateNo) * 100;
-        res.render('storePage', { title: store.name, accurateYes: store.accurateYes,
-            accurateNo: store.accurateNo, percent: percent, store: store })
+    var store_id = req.params.id;
+    const store = stores.find(store => store.id == store_id);
+    if (store) {
+        changeValue(store_id, "accurateNo");
+        res.redirect("/stores/" + store_id);
+    } else {
+        res.send("Invalid store id");
     }
 };
 
