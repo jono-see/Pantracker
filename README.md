@@ -22,6 +22,7 @@ Data Sources:
 While the project is linked to MongoDB, the project still runs of a sample dataset instead of the database, located at
 /models/store.js. The data is in the following format:
 
+```
 {
     "id":1,                                             // store id
     "name":"Woolworths - Bourke St Metro",              // store name
@@ -31,4 +32,5 @@ While the project is linked to MongoDB, the project still runs of a sample datas
     "accurateYes":13,                                   // sample of number of users who have positively rated store
     "accurateNo":2                                      // sample of number of users who have negatively rated store
  }
+ ```
 
