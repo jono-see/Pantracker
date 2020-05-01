@@ -1,8 +1,7 @@
-var shen_lat = -37.772721;
-var shen_long = 145.013858;
 var stores = require("../../models/store");
-var N_TO_LIST = 3;
 var request = require("request");
+
+var N_TO_LIST = 3;
 
 var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 var API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
@@ -66,48 +65,69 @@ const displayMap = (req, res) => {
 
 // Gets the 3 closest stores to the postcode provided
 const listStoresByPostcode = (req, res) => {
-    var address = req.params.id + "+VIC+Australia";
-    var url = URL_BASE + address + "&key=" + API_KEY;
-    var coords = [];
-    var data = {};
-    var closest_stores;
+    var postcode = req.params.id;
 
-    var req = request({
-            url: url,
-            json: true
-        },
-        function(error, response, body) {
-            data = body;
-            coords.push(data["results"][0]["geometry"]["location"]["lat"]);
-            coords.push(data["results"][0]["geometry"]["location"]["lng"]);
-            closest_stores = distanceMatrix(coords[0],coords[1]);
-            res.send(closest_stores)
-        });
-};
+    // Ensures a valid Victorian postcode is provided before searching
+    if (!(postcode[0] == "3" && postcode.length == 4)) {
+        res.send("Not a valid Victorian postcode");
+    }
+    else {
+        var address = postcode + "+VIC+Australia";
+        var url = URL_BASE + address + "&key=" + API_KEY;
+        var coords = [];
+        var data = {};
+        var closest_stores;
 
-const listStores = (req, res) => {
-    const curr_store = stores.find(store => store.id == req.params.id);
-    var closest_stores;
-    var coords = [];
-
-    closest_stores = distanceMatrix(curr_store["lat"],curr_store["long"],curr_store["id"]);
-    res.send(closest_stores);
-}
-
-const storeID = (req, res) => {
-    const store = stores.find(store => store.id == req.params.id);
-    const store_name = store.name;
-    const acc_yes = store.accurateYes;
-    const acc_no = store.accurateNo;
-    const percent = (acc_yes)/(acc_no + acc_yes) * 100;
-
-    if(store) {
-        res.render('storePage', { title: store_name, accurateYes: acc_yes,
-            accurateNo: acc_no, percent: percent, store: store })
+        var req = request({
+                url: url,
+                json: true
+            },
+            function (error, response, body) {
+                data = body;
+                coords.push(data["results"][0]["geometry"]["location"]["lat"]);
+                coords.push(data["results"][0]["geometry"]["location"]["lng"]);
+                closest_stores = distanceMatrix(coords[0], coords[1]);
+                res.send(closest_stores)
+            });
     }
 };
 
-/* Increases the yes value*/
+// Returns the closest stores to a different given store
+const listStores = (req, res) => {
+    const curr_store = stores.find(store => store.id == req.params.id);
+
+    if (!curr_store) {
+        res.send("Not a valid store id");
+    } else {
+        var closest_stores;
+        var coords = [];
+
+        closest_stores = distanceMatrix(curr_store["lat"], curr_store["long"], curr_store["id"]);
+        res.send(closest_stores);
+    }
+};
+
+// Provides information about a given store
+const storeID = (req, res) => {
+    const store = stores.find(store => store.id == req.params.id);
+
+    // Ensures that a valid store id is given before listing
+    if (!store) {
+        res.send("Not a valid store id");
+    } else {
+        const store_name = store.name;
+        const acc_yes = store.accurateYes;
+        const acc_no = store.accurateNo;
+        const percent = (acc_yes) / (acc_no + acc_yes) * 100;
+
+        res.render('storePage', {
+            title: store_name, accurateYes: acc_yes,
+            accurateNo: acc_no, percent: percent, store: store
+        })
+    }
+};
+
+// Increases the yes value
 const increaseYes = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     if (store) {
@@ -118,7 +138,7 @@ const increaseYes = (req, res) => {
     }
 };
 
-/* Increases the no value*/
+// Increases the no value
 const increaseNo = (req, res) => {
     const store = stores.find(store => store.id == req.params.id);
     if (store){
