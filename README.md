@@ -5,14 +5,20 @@
 ### Search function
 
 ### Store rating
-Allows users to rate whether they found the product/s they were looking for at a given store. Values can either be changed using on-screen buttons, or by HTML request
+Allows users to rate whether they found the product/s they were looking for at a given store. Values can either be changed using on-screen buttons, or by HTML request.
+
 
 URL for on-screen rating:
+
 https://info30005-pantracker.herokuapp.com/stores/[id]
 
+
 Increase or decrease rating by URL:
+
 https://info30005-pantracker.herokuapp.com/stores/[id]/plus
+
 https://info30005-pantracker.herokuapp.com/stores/[id]/minus
+
 
 
 ### Nearest stores
