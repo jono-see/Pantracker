@@ -5,12 +5,24 @@
 ### Search function
 
 ### Store rating
+Allows users to rate whether they found the product/s they were looking for at a given store. Values can either be changed using on-screen buttons, or by HTML request
+
+URL for on-screen rating:
+https://info30005-pantracker.herokuapp.com/stores/[id]
+
+Increase or decrease rating by URL:
+https://info30005-pantracker.herokuapp.com/stores/[id]/plus
+https://info30005-pantracker.herokuapp.com/stores/[id]/minus
+
 
 ### Nearest stores
 Allows users to find the nearest 3 stores from the sample dataset to a postcode they provide.
 
 Can be accessed through this URL:
 https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]
+
+Users are also able to find the 3 closest stores to a given store through this URL:
+https://info30005-pantracker.herokuapp.com/stores/[id]/closest
 
 
 ### URL parameters
