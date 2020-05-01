@@ -10,14 +10,14 @@
 Allows users to find the nearest 3 stores from the sample dataset to a postcode they provide.
 
 Can be accessed through this URL:
-https://info30005-pantracker.herokuapp.com/stores/postcode/\<postcode\>
+https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]
 
 
 ### URL parameters
 
 \<id\> - store id, any number between 1 and 6 for this sample data
 
-\<postcode\> - any victorian postcode, in format 3XXX
+[postcode] - any victorian postcode, in format 3XXX
 
 
 
