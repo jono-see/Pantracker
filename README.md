@@ -25,9 +25,12 @@ https://info30005-pantracker.herokuapp.com/stores/[id]/minus
 Allows users to find the nearest 3 stores from the sample dataset to a postcode they provide.
 
 Can be accessed through this URL:
+
 https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]
 
+
 Users are also able to find the 3 closest stores to a given store through this URL:
+
 https://info30005-pantracker.herokuapp.com/stores/[id]/closest
 
 
