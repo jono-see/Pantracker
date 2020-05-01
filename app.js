@@ -38,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.all(/^\/.*/, function (req, res) { res.send('Hello');
  // });
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use("/stores", storeRouter);
 
 app.get('/', function(req,res){
