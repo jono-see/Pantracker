@@ -14,8 +14,10 @@ https://info30005-pantracker.herokuapp.com/stores/postcode/<postcode>
 
 
 Note on URL parameters:
-<id> - store id, any number between 1 and 6 for this sample data
-<postcode> - any victorian postcode, in format 3XXX
+
+\<id\> - store id, any number between 1 and 6 for this sample data
+
+\<postcode\> - any victorian postcode, in format 3XXX
 
 
 Data Sources:
