@@ -13,14 +13,15 @@ Can be accessed through this URL:
 https://info30005-pantracker.herokuapp.com/stores/postcode/<postcode>
 
 
-## Note on URL parameters
+### Note on URL parameters
 
 \<id\> - store id, any number between 1 and 6 for this sample data
 
 \<postcode\> - any victorian postcode, in format 3XXX
 
 
-Data Sources:
+
+## Data Sources
 While the project is linked to MongoDB, the project still runs of a sample dataset instead of the database, located at
 /models/store.js. The data is in the following format:
 
