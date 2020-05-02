@@ -3,7 +3,19 @@
 ## Key functionalities
 
 ### Search function
-Allows users to search for products from a number of different stores nearby.
+Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
+
+The scraping functionality uses the "puppeteer" package which is aproximately 300mb, thus it is included in the .gitignore file. Furthermore, to use the package on a cloud service, like Heroku, it requires the installation of a buildpack (heroku buildpacks:add jontewks/puppeteer). Thus the final push to the heroku server was done through the Heroku CLI and not through Github.
+
+displays all products that have been searched for:
+https://info30005-pantracker.herokuapp.com/product (GET)
+
+searches for a product, given a specific "productName", "postcode" and "depth" which limits the number of results found:
+https://info30005-pantracker.herokuapp.com/product/search (POST)
+sample input would be {"productName": "tomato", "postcode": "3000", "depth": "1"} (POST)
+
+clear the products that have been searched for using:
+https://info30005-pantracker.herokuapp.com/product/clear (GET)
 
 ### Store rating
 Allows users to rate whether they found the product/s they were looking for at a given store. Values can either be changed using on-screen buttons (currently non-functional), or by HTML request.
