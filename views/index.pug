@@ -5,11 +5,18 @@ block content
     h2 Search
     //h3 Error: #{error}
 
-    form(method="POST" action="/users/search")
+    form(method="POST" action="/product/search")
         div
             label Product:
-            input(type='text', name='product')
+            input(type='text', name='productName')
         div
             label Postcode:
             input(type='text', name='postcode')
+        div
+            label Depth:
+            input(type='text', name='depth')
         button(type='submit') Search
+    form(method="GET" action="/product")
+        button(type='submit') Refresh
+    form(method="GET" action="/product/clear")
+        button(type='submit') Clear
