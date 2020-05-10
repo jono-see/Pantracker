@@ -2,21 +2,28 @@ extends layout
 
 block content
     h1 Team Pantracker
-    h2 Search
-    //h3 Error: #{error}
+    div#product-search
+        h2 Search for products
 
-    form(method="POST" action="/product/search")
-        div
-            label Product:
-            input(type='text', name='productName')
-        div
-            label Postcode:
-            input(type='text', name='postcode')
-        div
-            label Depth:
-            input(type='text', name='depth')
-        button(type='submit') Search
-    form(method="GET" action="/product")
-        button(type='submit') Refresh
-    form(method="GET" action="/product/clear")
-        button(type='submit') Clear
+        form(method="POST" action="/product/search")
+            div
+                label Product:
+                input(type='text', name='productName')
+            div
+                label Postcode:
+                input(type='text', name='postcodeProduct')
+            div
+                label Depth:
+                input(type='text', name='depth')
+            button(type='submit') Search
+        form(method="GET" action="/product")
+            button(type='submit') Refresh
+        form(method="GET" action="/product/clear")
+            button(type='submit') Clear
+    div#postcode-search
+        h2 Search by Postcode
+        form(method="GET" action="/stores/search/postcode")
+            div
+                label Postcode:
+                input(type='text', name='postcode')
+            button(type='submit') Search
