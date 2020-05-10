@@ -137,7 +137,10 @@ const storeID = (req, res) => {
         const store_name = store.name;
         const acc_yes = store.accurateYes;
         const acc_no = store.accurateNo;
-        const percent = (acc_yes) / (acc_no + acc_yes) * 100;
+        var percent = 0;
+        if (acc_yes + acc_no > 0){
+            percent = (acc_yes) / (acc_no + acc_yes) * 100;
+        }
 
         res.render('storePage', {
             title: store_name,
