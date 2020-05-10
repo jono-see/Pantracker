@@ -4,7 +4,7 @@ var request = require("request");
 var N_TO_LIST = 3;
 
 var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-var API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
+const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
 
 // Calculates the distance between two sets of latitude/longitude
 function haversineDistance(lat1, lon1, lat2, lon2) {
@@ -65,15 +65,6 @@ function changeValue(id, to_change) {
     }
     return;
 }
-
-/*
-const displayMap = (req, res) => {
-    var address = req.params.id + ", VIC, Australia"
-    var content = https.get("https://maps.googleapis.com/maps/api/geocode/json?address=8+French+Ave,+Northcote+3070+VIC+Australia&key=AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k");
-    var to_map = distanceMatrix(shen_lat, shen_long);
-    res.send(content);
-};
-*/
 
 // Gets the 3 closest stores to the postcode provided
 const listStoresByPostcode = (req, res) => {
@@ -151,7 +142,8 @@ const storeID = (req, res) => {
             percent: percent,
             address: store.address,
             lat: store.lat,
-            long: store.long
+            long: store.long,
+            API_KEY:API_KEY
         })
     }
 };
@@ -187,5 +179,4 @@ module.exports = {
     listStoresByPostcode,
     increaseYes,
     increaseNo,
-    API_KEY
 };
