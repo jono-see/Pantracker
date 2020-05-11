@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/25/08/14/tangerines-3105628_1280.jpg");
+    height: 100%;
+    width: 100%;
+
+
+}
+
+header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+}
+
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+
+form {
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+div {
+
+}
+
+
+#footer {
+    height: 40px;
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    color: white;
+}
+/* Background image from https://pixabay.com/photos/tangerines-fruit-orange-ripe-3105628/
