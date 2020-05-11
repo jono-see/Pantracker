@@ -4,7 +4,7 @@ var request = require("request");
 var N_TO_LIST = 3;
 
 var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-var API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
+const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
 
 // Calculates the distance between two sets of latitude/longitude
 function haversineDistance(lat1, lon1, lat2, lon2) {
@@ -66,19 +66,10 @@ function changeValue(id, to_change) {
     return;
 }
 
-/*
-const displayMap = (req, res) => {
-    var address = req.params.id + ", VIC, Australia"
-    var content = https.get("https://maps.googleapis.com/maps/api/geocode/json?address=8+French+Ave,+Northcote+3070+VIC+Australia&key=AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k");
-    var to_map = distanceMatrix(shen_lat, shen_long);
-    res.send(content);
-};
-*/
-
 // Gets the 3 closest stores to the postcode provided
 const listStoresByPostcode = (req, res) => {
     var postcode = req.params.id;
-
+    var page_title = "Stores closest to postcode "+postcode;
     // Ensures a valid Victorian postcode is provided before searching
     if (!(postcode[0] == "3" && postcode.length == 4)) {
         res.send("Not a valid Victorian postcode");
@@ -99,7 +90,14 @@ const listStoresByPostcode = (req, res) => {
                 coords.push(data["results"][0]["geometry"]["location"]["lat"]);
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
                 closest_stores = distanceMatrix(coords[0], coords[1]);
-                res.send(closest_stores)
+                console.log(closest_stores);
+                res.render('nearestStores', {
+                    title:page_title,
+                    postcode:postcode,
+                    p_lat:coords[0],
+                    p_long:coords[1],
+                    closest_stores:closest_stores
+                });
             });
     }
 };
@@ -130,11 +128,22 @@ const storeID = (req, res) => {
         const store_name = store.name;
         const acc_yes = store.accurateYes;
         const acc_no = store.accurateNo;
-        const percent = (acc_yes) / (acc_no + acc_yes) * 100;
+        var percent = 0;
+        if (acc_yes + acc_no > 0){
+            percent = (acc_yes) / (acc_no + acc_yes) * 100;
+        }
 
         res.render('storePage', {
-            title: store_name, accurateYes: acc_yes,
-            accurateNo: acc_no, percent: percent, store: store
+            title: store_name,
+            id:store.id,
+            name: store_name,
+            accurateYes: acc_yes,
+            accurateNo: acc_no,
+            percent: percent,
+            address: store.address,
+            lat: store.lat,
+            long: store.long,
+            API_KEY:API_KEY
         })
     }
 };
@@ -169,5 +178,5 @@ module.exports = {
     storeID,
     listStoresByPostcode,
     increaseYes,
-    increaseNo
+    increaseNo,
 };
