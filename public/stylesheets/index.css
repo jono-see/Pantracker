@@ -78,19 +78,17 @@ form {
 }
 
 button {
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background-color:transparent;
     border-radius:6px;
-    border:1px solid #dcdcdc;
     display:inline-block;
     cursor:pointer;
-    color:#666666;
+    color:grey;
     font-size:15px;
     font-weight:bold;
     padding:6px 24px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #ffffff;
     font-family: 'Open Sans Condensed', sans-serif;
+    background-color: rgba(255,255,255,0.5);
+    margin-top: 5px;
 }
 
 form input[type=text] {
@@ -113,7 +111,9 @@ form input[type=text] {
     height: 10px;
     border-radius: 5px 5px 5px 5px;
     outline: none;
+    margin-left: 5px;
 }
+
 
 #footer {
     height: 40px;

@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title= title
+        title= Pantracker
         link(rel='stylesheet', href='/stylesheets/index.css')
 
 div#content
@@ -19,7 +19,7 @@ div#content
             div
                 label Depth:
                 input.searchTerm(type='text', name='depth')
-            button(type='submit') Search
+            button.space(type='submit') Search
         form(method="GET" action="/product")
             button(type='submit') Refresh
         form(method="GET" action="/product/clear")
