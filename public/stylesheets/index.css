@@ -31,10 +31,10 @@ h1 {
     text-align: center;
     color: white;
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 64px;
+    font-size: 100px;
+    text-shadow: 2px 2px 30px #000000;
     font-weight: 700;
     line-height: 64px;
-    margin: 0 0 0;
     padding: 20px 30px;
     text-transform: uppercase;
     position: absolute;
@@ -43,9 +43,11 @@ h1 {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+
 h2 {
     text-align: center;
     color: white;
+    text-shadow: 2px 2px 40px #000000;
     font-family: 'Open Sans Condensed', sans-serif;
     text-transform: uppercase;
 }
@@ -73,8 +75,12 @@ h2 {
 }
 
 form {
-    color: darkblue;
-    font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    text-shadow: 2px 2px 20px #000000;
+    font-weight: bold;
 }
 
 button {
@@ -99,9 +105,14 @@ form input[type=text] {
     background-color: rgba(255,255,255,0.5);
 }
 
+
 #search {
     width: 100%;
     position: relative;
+}
+
+.space {
+    padding: 6px 120px;
 }
 
 .searchTerm {

@@ -1,13 +1,18 @@
-extends layout
+doctype html
+html
+    head
+        title= NearestStores
+        link(rel='stylesheet', href='/stylesheets/nearestStores.css')
 
 block content
+    div#heading
+        h1 Stores closest to #{postcode}
     div#closest_map
-        h3 Map of your closest stores
         mixin google-map-view(center, zoom, key)
             - maptype = "roadmap";
             - src = `https://google.com/maps/embed/v1/view?key=${key}&center=${center}&zoom=${zoom}&maptype=${maptype}`
             iframe(frameborder="0"
-                width="50%"
+                width="100%"
                 height="450"
                 src=`${src}`)
         - p_coords = p_lat + "," + p_long;
@@ -15,6 +20,6 @@ block content
 
 
     div#store_list
-        h3 List of your closest stores
+        h4 List stores closest to #{postcode}
         p #{closest_stores}
 
