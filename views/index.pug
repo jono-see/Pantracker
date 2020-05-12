@@ -10,15 +10,15 @@ div#content
         h2 Search for products
 
         form(method="POST" action="/product/search")
-            div
+            div#search
                 label Product:
-                input(type='text', name='productName')
+                input.searchTerm(type='text', name='productName')
             div
                 label Postcode:
-                input(type='text', name='postcodeProduct')
+                input.searchTerm(type='text', name='postcodeProduct')
             div
                 label Depth:
-                input(type='text', name='depth')
+                input.searchTerm(type='text', name='depth')
             button(type='submit') Search
         form(method="GET" action="/product")
             button(type='submit') Refresh
@@ -29,5 +29,5 @@ div#content
         form(method="GET" action="/stores/search/postcode")
             div
                 label Postcode:
-                input(type='text', name='postcode')
+                input.searchTerm(type='text', name='postcode')
             button(type='submit') Search
