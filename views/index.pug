@@ -22,8 +22,8 @@ div#content
             button.space(type='submit') Search
         form(method="GET" action="/product")
             button(type='submit') Refresh
-        form(method="GET" action="/product/clear")
-            button(type='submit') Clear
+            form(method="GET" action="/product/clear")
+                button(type='submit') Clear
     div#postcode-search
         h2 Search by Postcode
         form(method="GET" action="/stores/search/postcode")

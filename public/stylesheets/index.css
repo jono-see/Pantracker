@@ -90,11 +90,12 @@ button {
     color:grey;
     font-size:15px;
     font-weight:bold;
-    padding:6px 24px;
+    padding:6px 47px;
     text-decoration:none;
     font-family: 'Open Sans Condensed', sans-serif;
     background-color: rgba(255,255,255,0.5);
     margin-top: 5px;
+    margin-right: 10px;
 }
 
 form input[type=text] {
@@ -124,6 +125,7 @@ form input[type=text] {
     outline: none;
     margin-left: 5px;
 }
+
 
 
 #footer {
