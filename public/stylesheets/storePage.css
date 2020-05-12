@@ -1,3 +1,7 @@
+html, body{
+    margin: 0;
+}
+
 #heading {
     padding: 10px 16px;
     background: #555;
