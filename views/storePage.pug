@@ -32,11 +32,12 @@ block content
             h3 Map of store
             div(id="map-canvas", height="400", width="50%")
             -
+                var map;
                 function initMap() {
-                    var latlng = {lat:-37.815699, lng:144.955957};
-                    var mapOptions = {zoom: 13, center: latlng};
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                    var latlng = {lat:lat, lng:long};
+                    var mapOptions = {center: latlng, zoom:13};
+                    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
                 }
-            - var url="https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&callback=initMap";
+                var url="https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&callback=initMap";
             script(async defer src=url)
 
