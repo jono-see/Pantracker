@@ -6,7 +6,7 @@ const N_TO_LIST_STORES = 3;
 
 var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
-const MAPBOX_KEY = "pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTUwdmVubzBhNW4zb3FmeHBzNXphY3QifQ.xJmspleQlFE5a1YifkFUyg";
+const MAPBOX_KEY = "pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTV6aXlhdjAyamMzMHBhNjlka2Rtb24ifQ.41KtCaLJ_lQclxP4ARKU8Q";
 
 // Calculates the distance between two sets of latitude/longitude
 function haversineDistance(lat1, lon1, lat2, lon2) {
