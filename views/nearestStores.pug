@@ -3,20 +3,27 @@ html
     head
         title= title
         link(rel='stylesheet', href='/stylesheets/nearestStores.css')
+        link(rel="stylesheet", href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css",
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==",
+            crossorigin=)
+        script(src = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.js",
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==",
+            crossorigin="")
 
 block content
     div#heading
         h1 Stores closest to #{postcode}
-    div#closest_map
-        mixin google-map-view(center, zoom, key)
-            - maptype = "roadmap";
-            - src = `https://google.com/maps/embed/v1/view?key=${key}&center=${center}&zoom=${zoom}&maptype=${maptype}`
-            iframe(frameborder="0"
-                width="100%"
-                height="450"
-                src=`${src}`)
-        - p_coords = p_lat + "," + p_long;
-        +google-map-view(p_coords, 13, "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k")
+    div#map_canvas(style="width:100%; height:400px")
+    script.
+        var map_closest = L.map('map_canvas').setView([p_lat, p_long], 13);
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: MAPBOX_KEY
+        }).addTo(map_closest);
 
 
     div#store_list

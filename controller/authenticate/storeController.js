@@ -110,7 +110,8 @@ const listStores = (req, res) => {
                     postcode:postcode,
                     p_lat:coords[0],
                     p_long:coords[1],
-                    closest_stores:closest_stores
+                    closest_stores:closest_stores,
+                    MAPBOX_KEY: MAPBOX_KEY
                 });
             });
     }
