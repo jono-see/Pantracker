@@ -19,10 +19,24 @@ block content
             div#buttons
                 a(class="button", href="/stores/" + id + "/plus") Yes
                 a(class="button", href="/stores/" + id + "/minus") No
+            h2 Other nearby stores
+            each store in closest_stores
+                div(class="store-details")
+                    a(class="store-link" href="/stores/" + store.id) #{store.name}
+                    p #{store.address}
+                    - var formatted_rating = store.rating.toFixed(2);
+                    p Rating: #{formatted_rating}%
+                    br
+
         div#map-container
             h3 Map of store
             div(id="map-canvas", height="400", width="50%")
-            - function initMap() {var latlng = {lat:-37.815699, lng:144.955957}; var mapOptions = {zoom: 13, center: latlng}; var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);};
+            -
+                function initMap() {
+                    var latlng = {lat:-37.815699, lng:144.955957};
+                    var mapOptions = {zoom: 13, center: latlng};
+                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                }
             - var url="https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "&callback=initMap";
             script(async defer src=url)
 

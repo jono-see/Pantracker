@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title= NearestStores
+        title= title
         link(rel='stylesheet', href='/stylesheets/nearestStores.css')
 
 block content
@@ -20,6 +20,11 @@ block content
 
 
     div#store_list
-        h4 List stores closest to #{postcode}
-        p #{closest_stores}
-
+        h3 List of stores closest to #{postcode}
+        each store in closest_stores
+            div(class="store-details")
+                a(class="store-link" href="/stores/" + store.id) #{store.name}
+                p #{store.address}
+                - var formatted_rating = store.rating.toFixed(2);
+                p Rating: #{formatted_rating}%
+                br

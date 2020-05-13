@@ -1,7 +1,8 @@
 var stores = require("../../models/store");
 var request = require("request");
 
-var N_TO_LIST = 3;
+const N_TO_LIST_POSTCODE = 5;
+const N_TO_LIST_STORES = 3;
 
 var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
@@ -26,6 +27,13 @@ function distanceMatrix(lat,long,store_id=-1){
     var all_dist = [];
     var closest_dist = [];
 
+    // Determines if the function was called asking for stores closest to a postcode or another store
+    if (store_id == -1) {
+        var N_TO_LIST = N_TO_LIST_POSTCODE;
+    } else {
+        var N_TO_LIST = N_TO_LIST_STORES;
+    }
+
     // Calculate the distance to each store
     for (i = 0; i < stores.length; i++) {
         dist = haversineDistance(lat,long,stores[i]["lat"],stores[i]["long"]);
@@ -44,11 +52,16 @@ function distanceMatrix(lat,long,store_id=-1){
     for (i = 0; i < N_TO_LIST; i++) {
         var id = all_dist[i][0];
         store = stores.find(store => store.id === id);
+        var rating = 0;
+        if (store["accurateYes"] + store["accurateNo"] > 0) {
+            rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
+        }
         closest_dist.push({
             "id":id,
             "name":store["name"],
             "address":store["address"],
-            "distance":all_dist[i][1]
+            "distance":all_dist[i][1],
+            "rating":rating
         });
     }
     return closest_dist;
@@ -67,7 +80,7 @@ function changeValue(id, to_change) {
 }
 
 // Gets the 3 closest stores to the postcode provided
-const listStoresByPostcode = (req, res) => {
+const listStores = (req, res) => {
     var postcode = req.params.id;
     var page_title = "Stores closest to postcode "+postcode;
     // Ensures a valid Victorian postcode is provided before searching
@@ -90,7 +103,7 @@ const listStoresByPostcode = (req, res) => {
                 coords.push(data["results"][0]["geometry"]["location"]["lat"]);
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
                 closest_stores = distanceMatrix(coords[0], coords[1]);
-                console.log(closest_stores);
+
                 res.render('nearestStores', {
                     title:page_title,
                     postcode:postcode,
@@ -102,7 +115,8 @@ const listStoresByPostcode = (req, res) => {
     }
 };
 
-// Returns the closest stores to a different given store
+/*
+// OLD - Returns the closest stores to a different given store
 const listStores = (req, res) => {
     const curr_store = stores.find(store => store.id == req.params.id);
 
@@ -116,6 +130,7 @@ const listStores = (req, res) => {
         res.send(closest_stores);
     }
 };
+*/
 
 // Provides information about a given store
 const storeID = (req, res) => {
@@ -133,6 +148,8 @@ const storeID = (req, res) => {
             percent = (acc_yes) / (acc_no + acc_yes) * 100;
         }
 
+        var closest_stores = distanceMatrix(store.lat, store.long, store.id);
+
         res.render('storePage', {
             title: store_name,
             id:store.id,
@@ -143,6 +160,7 @@ const storeID = (req, res) => {
             address: store.address,
             lat: store.lat,
             long: store.long,
+            closest_stores:closest_stores,
             API_KEY:API_KEY
         })
     }
@@ -176,7 +194,6 @@ module.exports = {
 //    displayMap,
     listStores,
     storeID,
-    listStoresByPostcode,
     increaseYes,
     increaseNo,
 };
