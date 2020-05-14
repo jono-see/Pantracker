@@ -13,3 +13,5 @@ node_modules/\
 .idea/}
 
 puppeteer
+node_modules
+.DS_Store
