@@ -10,8 +10,6 @@ async function scrapeOfficeworks(productName, postcode, depth) {
     let storelocator_url = "https://www.officeworks.com.au/shop/officeworks/storelocator/" + postcode;
     let search_url = "https://www.officeworks.com.au/shop/officeworks/search?q=" + productName;
 
-    console.log("launching browser...");
-
     let browser = await puppeteer.launch({
         headless: true,
         args: puppeteerArgs
