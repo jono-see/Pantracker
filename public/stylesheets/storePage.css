@@ -1,10 +1,10 @@
 html, body{
     margin: 0;
+    height: 100vh;
 }
 
 #heading {
     padding: 1vh;
-    background: #555;
     color: #f1f1f1;
     text-align: center;
     background-image: url("../images/tangerines.jpg");
@@ -27,11 +27,13 @@ h1 {
     width: 18vw;
     background: #ccc;
     padding: 1vw;
+    height: 100vh;
 }
 
 #map {
     background-color: #f1f1f1;
     padding: 1vw;
+    height: 100vh;
 }
 
 h2 {
