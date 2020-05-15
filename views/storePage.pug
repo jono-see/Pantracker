@@ -12,17 +12,60 @@ block content
         h1 #{name}
     div#wrapper
         div#details
-            p #{rated}
+            script.
+                function disable() {
+                    var tomorrow;
+                    var today = new Date();
+                    var tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(0,0,0,0);
+                    document.cookie = "rated#{id}=true; expires="+tomorrow.toUTCString()+"; path=/";
+                }
+
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var decodedCookie = decodeURIComponent(document.cookie);
+                    var ca = decodedCookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+                function removeButtons() {
+                    var rated = getCookie("rated#{id}");
+                    console.log("Total cookie: "+ document.cookie);
+                    console.log("Rated: " + rated);
+                    if (rated == "true") {
+                        var yes = document.getElementById("yes_button");
+                        var no = document.getElementById("no_button");
+                        var message = document.getElementById("rate_message");
+                        yes.parentNode.removeChild(yes);
+                        no.parentNode.removeChild(no);
+                        message.parentNode.removeChild(message);
+                        var newText = document.createElement("P");
+                        newText.innerText = "You've already rated this store!";
+                        document.getElementById("rate_wrapper").appendChild(newText);
+                    }
+                }
             h2 #{name}
             p Address: #{address}
             #p1 Opening hours today:
-            h2 Store Rating
-            - var formatted_percent = percent.toFixed(2);
-            p #{formatted_percent}% of users found what they were looking for at this store!
-            p Did you find what you were looking for at this store?
-            div#buttons
-                a(class="button", href="/stores/" + id + "/plus", onclick="disable()") Yes
-                a(class="button", href="/stores/" + id + "/minus", onclick="disable()") No
+            div#rate_wrapper
+                h2 Store Rating
+                - var formatted_percent = percent.toFixed(2);
+                p #{formatted_percent}% of users found what they were looking for at this store!
+                p#rate_message Did you find what you were looking for at this store?
+                div#buttons
+                    a(id="yes_button", class="button", href="/stores/" + id + "/plus", onclick="disable()") Yes
+                    a(id="no_button",class="button", href="/stores/" + id + "/minus", onclick="disable()") No
+
             h2 Other nearby stores
             each store in closest_stores
                 div(class="store-details")
@@ -46,3 +89,5 @@ block content
                 }).addTo(mymap);
                 var store_marker = L.marker(["#{lat}", "#{long}"]).addTo(mymap);
                 store_marker.bindPopup("#{name}").openPopup();
+    script.
+        removeButtons();
