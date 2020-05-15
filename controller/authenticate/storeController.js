@@ -62,7 +62,9 @@ function distanceMatrix(lat,long,store_id=-1){
             "name":store["name"],
             "address":store["address"],
             "distance":all_dist[i][1],
-            "rating":rating
+            "rating":rating,
+            "lat":store["lat"],
+            "long":store["long"]
         });
     }
     return closest_dist;
