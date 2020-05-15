@@ -31,17 +31,16 @@ block content
                     br
 
         div#map-container
-            h3 Map of store
-            div#map-canvas(style='width: 1000px; height: 400px;')
+            div(id="mapid", style='width: 1000px; height: 400px;')
             script.
-                var storeMap = L.map('map-canvas').setView([lat, long], 13);
-                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                var mymap = L.map('mapid').setView(["#{lat}", "#{long}"], 15);
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
-                    id: 'mapbox/satellite-v11',
+                    id: 'mapbox/streets-v11',
                     tileSize: 512,
                     zoomOffset: -1,
-                    accessToken: MAPBOX_KEY
-                }).addTo(storeMap);
-                var store_marker = L.marker([lat, long]).addTo(storeMap);
-                store_marker.bindPopup(name).openPopup();
+                    accessToken: 'pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTV6aXlhdjAyamMzMHBhNjlka2Rtb24ifQ.41KtCaLJ_lQclxP4ARKU8Q'
+                }).addTo(mymap);
+                var store_marker = L.marker(["#{lat}", "#{long}"]).addTo(mymap);
+                store_marker.bindPopup("#{name}").openPopup();

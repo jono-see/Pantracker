@@ -16,28 +16,31 @@ block content
     div#map
         div#map_canvas(style="width:100%; height:400px")
         script.
-            var map_closest = L.map('map_canvas').setView([p_lat, p_long], 13);
+            var map_closest = L.map('map_canvas').setView(["#{p_lat}", "#{p_long}"], 15);
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 18,
                 id: 'mapbox/streets-v11',
                 tileSize: 512,
                 zoomOffset: -1,
-                accessToken: MAPBOX_KEY
-             }).addTo(map_closest);
+                accessToken: 'pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTV6aXlhdjAyamMzMHBhNjlka2Rtb24ifQ.41KtCaLJ_lQclxP4ARKU8Q'
+            }).addTo(map_closest);
+
+            var closest = JSON.parse("!{closest_stores}");
+            console.log("First element: "+ closest[0]);
 
             var i;
-            for (i=0; i<closest_stores.length; i++) {
-                var lat = closest_stores[i].lat;
-                var long = closest_stores[i].long;
+            for (i=0; i<closest.length; i++) {
+                var lat = 0;
+                var long = 0;
                 var marker = L.marker([lat, long]).addTo(map_closest);
-                var id = closest_stores[i].id;
-                var name = closest_stores[i].lat.name;
+                var id = 0;
+                var name = 0;
                 marker.bindPopup(name + "<br><a href='/stores/' + id>More Info</a>").openPopup();
             }
 
     div#store_list
-        h3 List of stores closest to #{postcode}
+        h3 List of nearby stores
         each store in closest_stores
             div(class="store-details")
                 a(class="store-link" href="/stores/" + store.id) #{store.name}
