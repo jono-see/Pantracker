@@ -28,6 +28,7 @@ h1 {
     background: #ccc;
     padding: 1vw;
     height: 100vh;
+    overflow: auto;
 }
 
 #map {
