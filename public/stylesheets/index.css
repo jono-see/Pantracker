@@ -8,21 +8,19 @@
 }
 
 body {
-    position: absolute;
+    position: relative;
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url("https://cdn.pixabay.com/photo/2018/01/25/08/14/tangerines-3105628_1280.jpg");
-    height: 100%;
-    width: 100%;
-
-
+    height: 100vh;
+    width: 100vw;
 }
 
 header {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
+    position: relative;
+    top: 50vh;
+    left: 50vh;
+    margin-right: -50vw;
     transform: translate(-50%, -50%);
 
 }
@@ -31,15 +29,15 @@ h1 {
     text-align: center;
     color: white;
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 100px;
-    text-shadow: 2px 2px 30px #000000;
+    font-size: 13vh;
+    text-shadow: 0.2vh 0.2vw 5vh #000000;
     font-weight: 700;
-    line-height: 64px;
-    padding: 20px 30px;
+    line-height: 3vh;
+    padding: 20vh 30vh;
     text-transform: uppercase;
     position: absolute;
-    top: 35%;
-    left: 50%;
+    top: 35vh;
+    left: 50vw;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
@@ -47,83 +45,80 @@ h1 {
 h2 {
     text-align: center;
     color: white;
-    text-shadow: 2px 2px 40px #000000;
+    text-shadow: 0.2vh 0.2vw 6vh #000000;
     font-family: 'Open Sans Condensed', sans-serif;
     text-transform: uppercase;
 }
 
 
 #content {
-    width: 800px;
+    width: 100vh;
     background-color: #ffcc33;
     margin: auto;
 }
 
 #product-search {
-    width: 400px;
+    width: 50vh;
     float: left;
-    height: 300px;
-    margin-top: 300px;
+    margin-top: 42vh;
 }
 
 
 #postcode-search {
-    width: 400px;
+    width: 50vh;
     float: left;
-    height: 300px;
-    margin-top: 300px;
+    margin-top: 42vh;
 }
 
 form {
     color: white;
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    line-height: 28px;
-    text-shadow: 2px 2px 20px #000000;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
     font-weight: bold;
 }
 
 button {
-    border-radius:6px;
+    border-radius:6vh;
     display:inline-block;
     cursor:pointer;
     color:grey;
-    font-size:15px;
+    font-size:2vh;
     font-weight:bold;
-    padding:6px 47px;
+    padding:1vh 3.25vw;
     text-decoration:none;
     font-family: 'Open Sans Condensed', sans-serif;
     background-color: rgba(255,255,255,0.5);
-    margin-top: 5px;
-    margin-right: 10px;
+    margin-top: 0.5vh;
+    margin-right: 1.5vh;
 }
 
 form input[type=text] {
-    margin-top: 8px;
-    margin-right: 16px;
-    font-size: 17px;
-    width: 50%;
+    margin-top: 1vh;
+    margin-right: 1vw;
+    font-size: 2vh;
+    width: 13vw;
     background-color: rgba(255,255,255,0.5);
 }
 
 
 #search {
-    width: 100%;
+    width: 100vw;
     position: relative;
 }
 
 .space {
-    padding: 6px 120px;
+    padding: 1vh 8.3vw;
 }
 
 .searchTerm {
-    width: 100%;
+    width: 100vw;
     border-right: none;
-    padding: 5px;
-    height: 10px;
-    border-radius: 5px 5px 5px 5px;
+    padding: 1vh;
+    height: 1.5vh;
+    border-radius: 1.5vh 1.5vh 1.5vh 1.5vh;
     outline: none;
-    margin-left: 5px;
+    margin-left: 1vh;
 }
 
 

@@ -1,34 +1,34 @@
 doctype html
-meta(name='viewport', content='width=device-width, initial-scale=1.0')
+meta(name="viewport",content="width=device-width, initial-scale=1.0")
 html
     head
         title= Pantracker
         link(rel='stylesheet', href='/stylesheets/index.css')
+body
+    div#content
+        h1 Pantracker
+        div#product-search
+            h2 Search for products
 
-div#content
-    h1 Pantracker
-    div#product-search
-        h2 Search for products
-
-        form(method="POST" action="/product/search")
-            div#search
-                label Product:
-                input.searchTerm(type='text', name='productName')
-            div
-                label Postcode:
-                input.searchTerm(type='text', name='postcodeProduct')
-            div
-                label Depth:
-                input.searchTerm(type='text', name='depth')
-            button.space(type='submit') Search
-        form(method="GET" action="/product")
-            button(type='submit') Refresh
-            form(method="GET" action="/product/clear")
-                button(type='submit') Clear
-    div#postcode-search
-        h2 Search by Postcode
-        form(method="GET" action="/stores/search/postcode")
-            div
-                label Postcode:
-                input.searchTerm(type='text', name='postcode')
-            button.space(type='submit') Search
+            form(method="POST" action="/product/search")
+                div#search
+                    label Product:
+                    input.searchTerm(type='text', name='productName')
+                div
+                    label Postcode:
+                    input.searchTerm(type='text', name='postcodeProduct')
+                div
+                    label Depth:
+                    input.searchTerm(type='text', name='depth')
+                button.space(type='submit') Search
+            form(method="GET" action="/product")
+                button(type='submit') Refresh
+                form(method="GET" action="/product/clear")
+                    button(type='submit') Clear
+        div#postcode-search
+            h2 Search by Postcode
+            form(method="GET" action="/stores/search/postcode")
+                div
+                    label Postcode:
+                    input.searchTerm(type='text', name='postcode')
+                button.space(type='submit') Search
