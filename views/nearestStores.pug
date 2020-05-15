@@ -30,36 +30,42 @@ block content
             var lat;
             var long;
             var name;
+            var address;
 
             lat = "#{closest_stores[0].lat}";
             long = "#{closest_stores[0].long}";
             var marker0 = L.marker([lat, long]).addTo(map_closest);
             name = "#{closest_stores[0].name}";
-            marker0.bindPopup(name + "<br><a href='/stores/#{closest_stores[0].id}'>More Info</a>");
+            address = "#{closest_stores[0].address}";
+            marker0.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[0].id}' target='_blank'>More Info</a>");
 
             lat = "#{closest_stores[1].lat}";
             long = "#{closest_stores[1].long}";
             var marker1 = L.marker([lat, long]).addTo(map_closest);
             name = "#{closest_stores[1].name}";
-            marker1.bindPopup(name + "<br><a href='/stores/#{closest_stores[1].id}'>More Info</a>");
+            address = "#{closest_stores[1].address}";
+            marker1.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[1].id}' target='_blank'>More Info</a>");
 
             lat = "#{closest_stores[2].lat}";
             long = "#{closest_stores[2].long}";
             var marker2 = L.marker([lat, long]).addTo(map_closest);
             name = "#{closest_stores[2].name}";
-            marker2.bindPopup(name + "<br><a href='/stores/#{closest_stores[2].id}'>More Info</a>");
+            address = "#{closest_stores[2].address}";
+            marker2.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[2].id}' target='_blank'>More Info</a>");
 
             lat = "#{closest_stores[3].lat}";
             long = "#{closest_stores[3].long}";
             var marker3 = L.marker([lat, long]).addTo(map_closest);
             name = "#{closest_stores[3].name}";
-            marker3.bindPopup(name + "<br><a href='/stores/#{closest_stores[3].id}'>More Info</a>");
+            address = "#{closest_stores[3].address}";
+            marker3.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[3].id}' target='_blank'>More Info</a>");
 
             lat = "#{closest_stores[4].lat}";
             long = "#{closest_stores[4].long}";
             var marker4 = L.marker([lat, long]).addTo(map_closest);
             name = "#{closest_stores[4].name}";
-            marker4.bindPopup(name + "<br><a href='/stores/#{closest_stores[4].id}'>More Info</a>");
+            address = "#{closest_stores[4].address}";
+            marker4.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[4].id}' target='_blank'>More Info</a>");
 
     div#store_list
         h3 List of nearby stores
