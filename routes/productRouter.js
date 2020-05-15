@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var scrapeOfficeworks = require('../controller/authenticate/scrapeOfficeworks.js');
-var scrapeWoolworths = require('../controller/authenticate/scrapeWoolworths.js');
-var scrapeBigW = require('../controller/authenticate/scrapeBigW.js');
+var scrapeOfficeworks = require('../controller/scrapeOfficeworks.js');
+var scrapeWoolworths = require('../controller/scrapeWoolworths.js');
+var scrapeBigW = require('../controller/scrapeBigW.js');
 var products = require("../models/products.js");
 
 router.post('/search', function (req, res, next) {

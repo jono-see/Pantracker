@@ -1,4 +1,4 @@
-var stores = require("../../models/store");
+var stores = require("../models/store");
 var request = require("request");
 
 const N_TO_LIST_POSTCODE = 5;

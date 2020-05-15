@@ -4,7 +4,7 @@ const express = require("express");
 const storeRouter = express.Router();
 
 // load/import the author controller
-const storeController = require("../controller/authenticate/storeController.js");
+const storeController = require("../controller/storeController.js");
 
 //storeRouter.get('/map/:id', (req, res) => storeController.displayMap(req, res));
 storeRouter.get("/:id", storeController.storeID);
