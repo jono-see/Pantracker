@@ -21,8 +21,8 @@ block content
             p #{formatted_percent}% of users found what they were looking for at this store!
             p Did you find what you were looking for at this store?
             div#buttons
-                a(class="button", href="/stores/" + id + "/plus") Yes
-                a(class="button", href="/stores/" + id + "/minus") No
+                a(class="button", href="/stores/" + id + "/plus", onclick="disable()") Yes
+                a(class="button", href="/stores/" + id + "/minus", onclick="disable()") No
             h2 Other nearby stores
             each store in closest_stores
                 div(class="store-details")
