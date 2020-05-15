@@ -12,6 +12,7 @@ block content
         h1 #{name}
     div#wrapper
         div#details
+            p #{rated}
             h2 #{name}
             p Address: #{address}
             #p1 Opening hours today:
@@ -32,7 +33,7 @@ block content
                     br
 
         div#map-container
-            div(id="mapid", style='width: 82vw; height: 100vh;')
+            div(id="mapid", style='width: 78vw; height: 85.5vh;')
             script.
                 var mymap = L.map('mapid').setView(["#{lat}", "#{long}"], 15);
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
