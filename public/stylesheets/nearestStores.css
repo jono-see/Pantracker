@@ -46,6 +46,7 @@ button {
     border: none;
     margin-left: 1vw;
     margin-top: 1vh;
+    cursor: pointer;
 }
 
 h3{
