@@ -8,7 +8,8 @@ body
     div#content
         h1 Pantracker
         div#product-search
-            h2 Search for products
+            h2 Search for
+            h2 products
 
             form(method="POST" action="/product/search")
                 div#search
@@ -26,7 +27,8 @@ body
                 form(method="GET" action="/product/clear")
                     button(type='submit') Clear
         div#postcode-search
-            h2 Search by Postcode
+            h2 Search for
+            h2 nearby stores
             form(method="GET" action="/stores/search/postcode")
                 div
                     label Postcode:
