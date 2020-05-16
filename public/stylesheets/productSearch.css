@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+@font-face {
+  font-family: Signika;
+  src: url("../fonts/Signika/Signika-Regular.ttf");
+  src: url("../fonts/Signika/Signika-Light.ttf");
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat/Montserrat-Medium.ttf");
+}
+
+body {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("https://cdn.pixabay.com/photo/2018/01/25/08/14/tangerines-3105628_1280.jpg");
+  height: 100vh;
+  width: 100vw;
+}
+
+header {
+  position: relative;
+  top: 50vh;
+  left: 50vh;
+  margin-right: -50vw;
+  transform: translate(-50%, -50%);
+
+}
+
+body {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/25/08/14/tangerines-3105628_1280.jpg");
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    left: 45%;
+    top: 45%;
+    position: absolute;
+}
+
+#productList {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    padding: 0;
+    width: 80%;
+    height: 80%;
+    table-layout: fixed;
+    margin: 0 auto;
+    color: white;
+    font-family: 'Montserrat-Mediumt', Montserrat;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+  }
+  
+  table tr {
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    width: 50%;
+    background-color: rgba(255,255,255,0.5);
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  
+  form {
+    color: white;
+    font-family: 'Montserrat-Mediumt', Montserrat;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+}
+
+button {
+    border-radius:6vh;
+    display:inline-block;
+    cursor:pointer;
+    color:grey;
+    font-size:2vh;
+    font-weight:bold;
+    padding:1vh 3.25vw;
+    text-decoration:none;
+    font-family: 'Montserrat-Medium', Montserrat;
+    background-color: rgba(255,255,255,0.5);
+    margin-top: 0.5vh;
+    margin-right: 1.5vh;
+}
+
+form input[type=text] {
+    margin-top: 1vh;
+    margin-right: 1vw;
+    font-size: 2vh;
+    width: 14vw;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 10;
+}
+

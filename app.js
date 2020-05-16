@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session')
 require("./models");
 
 /* router is also known as a mini-app
@@ -16,6 +17,7 @@ With routers you can modularize your code more easily. You can use routers as:
 var indexRouter = require('./routes/index');
 var storeRouter = require("./routes/storeRouter");
 var productRouter = require('./routes/productRouter');
+var userRouter = require('./routes/userRouter');
 
 var app = express();
 
@@ -33,6 +35,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//use sessions for tracking logins
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // app.use() is intended for binding middleware to your application.
 // The path is a "mount" or "prefix" path and limits the middleware
@@ -42,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use("/stores", storeRouter);
 app.use('/product', productRouter);
+app.use('/user', userRouter);
 
 
 // catch 404 and forward to error handler

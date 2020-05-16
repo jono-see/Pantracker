@@ -16,3 +16,4 @@ storeRouter.get("/:id/plus", storeController.increaseYes);
 storeRouter.get("/:id/minus", storeController.increaseNo);
 
 module.exports = storeRouter;
+

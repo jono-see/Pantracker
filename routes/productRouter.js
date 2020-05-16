@@ -1,12 +1,24 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var router = express.Router();
 
 var scrapeOfficeworks = require('../controller/scrapeOfficeworks.js');
 var scrapeWoolworths = require('../controller/scrapeWoolworths.js');
 var scrapeBigW = require('../controller/scrapeBigW.js');
 var products = require("../models/products.js");
+var User = mongoose.model('User');
 
-router.post('/search', function (req, res, next) {
+function requiresLogin(req, res, next) {
+    if (req.session && req.session.userId) {
+      return next();
+    } else {
+      var err = new Error('You must be logged in to view this page.');
+      err.status = 401;
+      return next(err);
+    }
+  }
+
+router.post('/search', requiresLogin, function (req, res, next) {
 
     let productName = req.body.productName;
     let postcode = req.body.postcode;
@@ -14,38 +26,82 @@ router.post('/search', function (req, res, next) {
 
     scrapeOfficeworks(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
-            products.push(val)
+            // products.push(val)
+            console.log(val);
+                User.update(
+                    { "username" : req.session.userId },
+                    { "$push" : { "searchResults" : {
+                        "storeName": val.storeName,
+                        "storeLocation": val.storeLocation,
+                        "storeNo": val.storeNo,
+                        "productName": val.productName,
+                        "productPrice": val.productPrice,
+                        "productStatus": val.productStatus
+                    }} }
+                    ).then(result => {
+                        console.log(result);
+                      })
+                      .catch(err => console.log(err));
         }); 
     });
 
     scrapeWoolworths(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
-            products.push(val)
+            // products.push(val)
+            console.log(val);
+                User.update(
+                    { "username" : req.session.userId },
+                    { "$push" : { "searchResults" : {
+                        "storeName": val.storeName,
+                        "storeLocation": val.storeLocation,
+                        "storeNo": val.storeNo,
+                        "productName": val.productName,
+                        "productPrice": val.productPrice,
+                        "productStatus": val.productStatus
+                    }} }
+                    ).then(result => {
+                        console.log(result);
+                      })
+                      .catch(err => console.log(err));
         }); 
     });
 
     scrapeBigW(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
-            products.push(val)
+            // products.push(val)
+            console.log(val);
+                User.update(
+                    { "username" : req.session.userId },
+                    { "$push" : { "searchResults" : {
+                        "storeName": val.storeName,
+                        "storeLocation": val.storeLocation,
+                        "storeNo": val.storeNo,
+                        "productName": val.productName,
+                        "productPrice": val.productPrice,
+                        "productStatus": val.productStatus
+                    }} }
+                    ).then(result => {
+                        console.log(result);
+                      })
+                      .catch(err => console.log(err));
+
+
         }); 
     });
   
-  res.render('index', {error: true});
+  res.render('productSearch', {error: true});
 
 
 });
 
-router.get('/', function (req, res, next) {
+router.get('/delete', function (req, res, next) {
 
-  res.send(products);
-
-});
-
-router.get('/clear', function (req, res, next) {
-
-  products = [];
-
-  res.send(products);
+    User.update(
+        { "username" : req.session.userId },
+        { "$set" : { "searchResults" : [] } }
+    ).then(result => {
+        return res.render("index");
+      })
 
 });
 

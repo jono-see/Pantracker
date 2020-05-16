@@ -146,4 +146,15 @@ form input[type=text] {
     width:100%;
     color: white;
 }
-/* Background image from https://pixabay.com/photos/tangerines-fruit-orange-ripe-3105628/
+/* /* Background image from https://pixabay.com/photos/tangerines-fruit-orange-ripe-3105628/
+
+*/
+
+#status {
+    color: white;
+    font-family: 'Montserrat-Mediumt', Montserrat;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+    margin-left: 1vh;
+}
+

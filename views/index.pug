@@ -5,26 +5,59 @@ html
         title= "Pantracker"
         link(rel='stylesheet', href='/stylesheets/index.css')
 body
+    div
+        form(method="GET" action="/user/")
+            button(type='submit') login/register
+        form(method="GET" action="/user/logout")
+            button(type='submit') logout
+        div(id = "status")
+        
+            script.
+
+                function httpGet(theUrl) {
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+                    xmlHttp.send( null );
+                    return xmlHttp;
+                };
+
+                window.onload = function() {
+                    let xml = httpGet("http://localhost:3000/user/sessionId");
+                    let responseText = xml.responseText;
+                    if (responseText.length == 0) {
+                        document.getElementById("status").innerText = "";
+                    } else {
+                        document.getElementById("status").innerText = "logged in as" + " " + responseText;
+                    }
+                }
+
     div#content
         h1 Pantracker
         div#product-search
             h2 Search for products
 
+            //- form(method="POST" action="/product/search")
+            //-     div#search
+            //-         label Product:
+            //-         input.searchTerm(type='text', name='productName')
+            //-     div
+            //-         label Postcode:
+            //-         input.searchTerm(type='text', name='postcodeProduct')
+            //-     div
+            //-         label Depth:
+            //-         input.searchTerm(type='text', name='depth')
+            //-     button.space(type='submit') Search
             form(method="POST" action="/product/search")
-                div#search
+                div
                     label Product:
-                    input.searchTerm(type='text', name='productName')
+                    input(type='text', name='productName')
                 div
                     label Postcode:
-                    input.searchTerm(type='text', name='postcodeProduct')
+                    input(type='text', name='postcode')
                 div
                     label Depth:
-                    input.searchTerm(type='text', name='depth')
-                button.space(type='submit') Search
-            form(method="GET" action="/product")
-                button(type='submit') Refresh
-                form(method="GET" action="/product/clear")
-                    button(type='submit') Clear
+                    input(type='text', name='depth')
+                button(type='submit') Search
         div#postcode-search
             h2 Search for nearby stores
             form(method="GET" action="/stores/search/postcode")

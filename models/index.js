@@ -24,3 +24,4 @@ db.once("open", async () => {
 });
 
 require("./stores.js");
+require("./user.js");
