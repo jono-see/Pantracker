@@ -1,12 +1,13 @@
 var request = require("request");
-
 var mongoose = require('mongoose');
 var Stores = mongoose.model('allStores');
 
+// Constants for the number of nearest stores to calculate
 const N_TO_LIST_POSTCODE = 5;
 const N_TO_LIST_STORES = 3;
 
-var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+// Constants for Google Maps and Mapbox APIs
+const URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
 const MAPBOX_KEY = "pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTV6aXlhdjAyamMzMHBhNjlka2Rtb24ifQ.41KtCaLJ_lQclxP4ARKU8Q";
 
@@ -37,6 +38,7 @@ async function distanceMatrix (lat,long,store_id=-1){
         var N_TO_LIST = N_TO_LIST_STORES;
     }
 
+    // Finds all stores from the database so that distances can be measures
     await Stores.find(function(err, stores) {
 
         // Calculate the distance to each store
@@ -61,6 +63,8 @@ async function distanceMatrix (lat,long,store_id=-1){
             if (store["accurateYes"] + store["accurateNo"] > 0) {
                 rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
             }
+
+            // Add relevant data to array to be later sent to pug page
             closest_dist.push({
                 "id":id,
                 "name":store.name,
@@ -79,6 +83,7 @@ async function distanceMatrix (lat,long,store_id=-1){
 // Increases either the accurateYes or accurateNo values in the data
 async function changeValue(id, to_change, current_value) {
 
+    // Works out whether to increase yes or no values
     if (to_change == "accurateYes") {
         var newValue = current_value + 1;
         await Stores.updateOne({_id: id}, {accurateYes: newValue});
@@ -92,6 +97,7 @@ async function changeValue(id, to_change, current_value) {
 const nearestStores = async (req, res) => {
     var postcode = req.params.id;
     var page_title = "Stores closest to postcode "+postcode;
+
     // Ensures a valid Victorian postcode is provided before searching
     if (!(postcode[0] == "3" && postcode.length == 4)) {
         res.send("Not a valid Victorian postcode");
@@ -113,6 +119,7 @@ const nearestStores = async (req, res) => {
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
                 closest_stores = await distanceMatrix(coords[0], coords[1]);
 
+                // Renders the nearestStores pug page with relevant data
                 res.render('nearestStores', {
                     title:page_title,
                     postcode:postcode,
@@ -129,9 +136,12 @@ const nearestStores = async (req, res) => {
 const storeID = async (req, res) => {
     var exists = await Stores.exists({_id: req.params.id});
 
+    // Ensures that is is a valid store id
     if (!exists) {
         res.send("Invalid store id");
     } else {
+
+        // Finds the relevant store within the database
         Stores.findById(req.params.id, async function (err, store) {
             const store_name = store.name;
             const acc_yes = store.accurateYes;
@@ -164,6 +174,7 @@ const storeID = async (req, res) => {
 const increaseYes = async (req, res) => {
     var exists = await Stores.exists({_id: req.params.id});
 
+    // Determines that is is a valid store id
     if (exists) {
         Stores.findById(req.params.id, function (err, store) {
 
@@ -179,6 +190,7 @@ const increaseYes = async (req, res) => {
 const increaseNo = async (req, res) => {
     var exists = await Stores.exists({_id: req.params.id});
 
+    // Determines that is is a valid store id
     if (exists) {
         Stores.findById(req.params.id, function (err, store) {
             changeValue(req.params.id, "accurateNo", store.accurateNo);
@@ -193,5 +205,5 @@ module.exports = {
     nearestStores,
     storeID,
     increaseYes,
-    increaseNo,
+    increaseNo
 };
