@@ -1,12 +1,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var woolworthsSchema = new Schema({
-    "Location Name": {type: String, required: true},
-    "Brand": String,
-    "Internal Address": String,
-    rating: String,
-    photo: String
-}, {collection: 'WoolworthsStores'});
+var storeSchema = new Schema({
+    _id: {type: Number, required: true},
+    name: {type: String, required: true},
+    brand: String,
+    address: String,
+    postcode: String,
+    latitude: String,
+    longitude: String,
+    accurateYes: Number,
+    accurateNo: Number,
+}, {collection: 'AllStores'});
 
-mongoose.model('woolworths', woolworthsSchema);
+mongoose.model('allStores', storeSchema);
