@@ -71,7 +71,7 @@ block content
         h3 List of nearby stores
         each store in closest_stores
             div(class="store-details")
-                a(class="store-link" href="/stores/" + store.id) #{store.name}
+                a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
                 p #{store.address}
                 - var formatted_rating = store.rating.toFixed(2);
                 p Rating: #{formatted_rating}%
