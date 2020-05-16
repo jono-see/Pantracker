@@ -6,7 +6,7 @@ const storeRouter = express.Router();
 // load/import the author controller
 const storeController = require("../controller/storeController.js");
 
-//storeRouter.get('/map/:id', (req, res) => storeController.displayMap(req, res));
+// All the paths under /store/
 storeRouter.get("/:id", storeController.storeID);
 storeRouter.get("/postcode/:id/", storeController.nearestStores);
 storeRouter.get("/search/postcode", function (req, res) {
