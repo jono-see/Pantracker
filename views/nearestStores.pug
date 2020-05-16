@@ -4,6 +4,7 @@ html
     head
         title= title
         link(rel='stylesheet', href='/stylesheets/nearestStores.css')
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         link(rel='stylesheet', href='https://unpkg.com/leaflet@1.6.0/dist/leaflet.css',
             integrity='sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==',
             crossorigin=)
@@ -14,6 +15,8 @@ html
 block content
     div#heading
         h1 Stores closest to #{postcode}
+        a(href="/")
+            button(type="button", class="fa fa-home")
     div#map
         div#map_canvas(style="width:100%; height:400px")
         script.
