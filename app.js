@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require("./models");
 
 /* router is also known as a mini-app
 With routers you can modularize your code more easily. You can use routers as:

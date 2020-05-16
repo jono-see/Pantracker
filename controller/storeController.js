@@ -1,6 +1,9 @@
 var stores = require("../models/store");
 var request = require("request");
 
+var mongoose = require('mongoose');
+var Woolworths = mongoose.model('woolworths');
+
 const N_TO_LIST_POSTCODE = 5;
 const N_TO_LIST_STORES = 3;
 
