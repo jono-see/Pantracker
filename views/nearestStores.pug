@@ -13,12 +13,13 @@ html
             crossorigin='')
 
 block content
+    div#home
+        a(href="/")
+            button(type="button")
     div#heading
         h1 Stores closest to #{postcode}
-        a(href="/")
-            button(type="button", class="fa fa-home")
     div#map
-        div#map_canvas(style="width:100%; height:400px")
+        div#map_canvas(style="width:100vw; height:65vh")
         script.
             var map_closest = L.map('map_canvas').setView(["#{p_lat}", "#{p_long}"], 14);
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -69,13 +70,13 @@ block content
             name = "#{closest_stores[4].name}";
             address = "#{closest_stores[4].address}";
             marker4.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[4].id}' target='_blank'>More Info</a>");
-
     div#store_list
-        h3 List of nearby stores
-        each store in closest_stores
-            div(class="store-details")
-                a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
-                p #{store.address}
-                - var formatted_rating = store.rating.toFixed(2);
-                p Rating: #{formatted_rating}%
-                br
+        div#layer
+            h3 List of nearby stores
+            each store in closest_stores
+                div(class="store-details")
+                    a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
+                    p #{store.address}
+                    - var formatted_rating = store.rating.toFixed(2);
+                    p Rating: #{formatted_rating}%
+                    br

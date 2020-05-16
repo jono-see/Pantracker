@@ -7,6 +7,17 @@
     background: transparent;
 }
 
+@font-face {
+    font-family: Signika;
+    src: url("../fonts/Signika/Signika-Regular.ttf");
+    src: url("../fonts/Signika/Signika-Light.ttf");
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat/Montserrat-Medium.ttf");
+}
+
 body {
     position: relative;
     background-repeat: no-repeat;
@@ -28,7 +39,7 @@ header {
 h1 {
     text-align: center;
     color: white;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: Signika-Regular, Signika;
     font-size: 13vh;
     text-shadow: 0.2vh 0.2vw 5vh #000000;
     font-weight: 700;
@@ -47,21 +58,24 @@ h2 {
     text-align: center;
     color: white;
     text-shadow: 0.2vh 0.2vw 6vh #000000;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Signika-Light', Signika;
     text-transform: uppercase;
 }
 
 
 #content {
-    width: 100vh;
+    width: 100vw;
     background-color: #ffcc33;
-    margin: auto;
+    text-align: center;
+    margin: 0 auto;
 }
 
 #product-search {
     width: 50vh;
     float: left;
     margin-top: 42vh;
+    text-align: center;
+    margin-left: 25vw;
 }
 
 
@@ -69,14 +83,14 @@ h2 {
     width: 50vh;
     float: left;
     margin-top: 42vh;
+
 }
 
 form {
     color: white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat-Mediumt', Montserrat;
     font-size: 2.25vh;
     text-shadow: 0.2vh 0.2vw 1.5vh #000000;
-    font-weight: bold;
 }
 
 button {
@@ -88,7 +102,7 @@ button {
     font-weight:bold;
     padding:1vh 3.25vw;
     text-decoration:none;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Montserrat-Medium', Montserrat;
     background-color: rgba(255,255,255,0.5);
     margin-top: 0.5vh;
     margin-right: 1.5vh;
