@@ -24,8 +24,8 @@ h1 {
     position: absolute;
     top: 0vh;
     left: 0vw;
-    z-index: 2;
     font-size: 12vh;
+    z-index: 50;
 }
 
 #wrapper {
