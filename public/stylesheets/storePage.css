@@ -8,17 +8,24 @@ html, body{
     color: #f1f1f1;
     text-align: left;
     background-image: url("../images/tangerines.jpg");
+    z-index: -1;
+    position: relative;
 }
 
 h1 {
     text-align: center;
     font-family: 'Open Sans Condensed', sans-serif;
     text-transform: uppercase;
+    font-size: 5vh;
+    z-index: -1;
 }
 
-button {
+#home {
     position: absolute;
-    margin-left: 5vw;
+    top: 0vh;
+    left: 0vw;
+    z-index: 2;
+    font-size: 12vh;
 }
 
 #wrapper {

@@ -98,7 +98,7 @@ form input[type=text] {
     margin-top: 1vh;
     margin-right: 1vw;
     font-size: 2vh;
-    width: 14.01vw;
+    width: 14vw;
     background-color: rgba(255,255,255,0.5);
     z-index: 10;
 }
