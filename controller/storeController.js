@@ -81,10 +81,10 @@ async function changeValue(id, to_change, current_value) {
 
     if (to_change == "accurateYes") {
         var newValue = current_value + 1;
-        Stores.updateOne({_id: id}, {accurateYes: newValue});
+        await Stores.updateOne({_id: id}, {accurateYes: newValue});
     } else if (to_change == "accurateNo") {
         var newValue = current_value + 1;
-        Stores.updateOne({_id: id}, {accurateNo: newValue});
+        await Stores.updateOne({_id: id}, {accurateNo: newValue});
     }
 }
 
@@ -141,7 +141,6 @@ const storeID = async (req, res) => {
                 percent = (acc_yes) / (acc_no + acc_yes) * 100;
             }
             var closest_stores = await distanceMatrix(store.latitude, store.longitude, store._id);
-            console.log(closest_stores);
 
             return res.render('storePage', {
                 title: store_name,
