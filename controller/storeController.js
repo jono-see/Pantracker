@@ -10,17 +10,6 @@ var URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 const API_KEY = "AIzaSyDyB-JHeX5-lGAklEsl4vpZvayACIcGX6k";
 const MAPBOX_KEY = "pk.eyJ1Ijoic2hlbmJsYWNrIiwiYSI6ImNrYTV6aXlhdjAyamMzMHBhNjlka2Rtb24ifQ.41KtCaLJ_lQclxP4ARKU8Q";
 
-async function getAllStores() {
-    try {
-        await Stores.find(function(err, stores) {
-            return stores;
-        });
-    } catch (err) {
-        res.status(400);
-        return "Database query failed";
-    }
-};
-
 // Calculates the distance between two sets of latitude/longitude
 function haversineDistance(lat1, lon1, lat2, lon2) {
     var R = 6378.137; // Radius of earth in KM
@@ -84,18 +73,19 @@ async function distanceMatrix (lat,long,store_id=-1){
         }
         return closest_dist;
     });
+    return closest_dist;
 }
 
 // Increases either the accurateYes or accurateNo values in the data
-function changeValue(id, to_change) {
-    var i;
-    for (i = 0; i < stores.length; i++) {
-        if (stores[i]["id"] == id) {
-            stores[i][to_change] += 1;
-            return;
-        }
+async function changeValue(id, to_change, current_value) {
+
+    if (to_change == "accurateYes") {
+        var newValue = current_value + 1;
+        Stores.updateOne({_id: id}, {accurateYes: newValue});
+    } else if (to_change == "accurateNo") {
+        var newValue = current_value + 1;
+        Stores.updateOne({_id: id}, {accurateNo: newValue});
     }
-    return;
 }
 
 // Gets the 5 closest stores to the postcode provided
@@ -137,12 +127,12 @@ const nearestStores = (req, res) => {
 
 // Provides information about a given store
 const storeID = async (req, res) => {
-    var exists = await Stores.exists({_id: req.params.id})
+    var exists = await Stores.exists({_id: req.params.id});
 
     if (!exists) {
         res.send("Invalid store id");
     } else {
-        Stores.findById(req.params.id, function (err, store) {
+        Stores.findById(req.params.id, async function (err, store) {
             const store_name = store.name;
             const acc_yes = store.accurateYes;
             const acc_no = store.accurateNo;
@@ -150,7 +140,7 @@ const storeID = async (req, res) => {
             if (acc_yes + acc_no > 0) {
                 percent = (acc_yes) / (acc_no + acc_yes) * 100;
             }
-            var closest_stores = distanceMatrix(store.latitude, store.longitude, store._id);
+            var closest_stores = await distanceMatrix(store.latitude, store.longitude, store._id);
             console.log(closest_stores);
 
             return res.render('storePage', {
@@ -172,24 +162,29 @@ const storeID = async (req, res) => {
 };
 
 // Increases the yes accuracy value
-const increaseYes = (req, res) => {
-    var store_id = req.params.id;
-    const store = stores.find(store => store.id == store_id);
-    if (store) {
-        changeValue(store_id, "accurateYes");
-        res.redirect("/stores/" + store_id);
+const increaseYes = async (req, res) => {
+    var exists = await Stores.exists({_id: req.params.id});
+
+    if (exists) {
+        Stores.findById(req.params.id, function (err, store) {
+
+            changeValue(req.params.id, "accurateYes", store.accurateYes);
+            res.redirect("/stores/" + req.params.id);
+        })
     } else {
         res.send("Invalid store id");
     }
 };
 
 // Increases the no accuracy value
-const increaseNo = (req, res) => {
-    var store_id = req.params.id;
-    const store = stores.find(store => store.id == store_id);
-    if (store) {
-        changeValue(store_id, "accurateNo");
-        res.redirect("/stores/" + store_id);
+const increaseNo = async (req, res) => {
+    var exists = await Stores.exists({_id: req.params.id});
+
+    if (exists) {
+        Stores.findById(req.params.id, function (err, store) {
+            changeValue(req.params.id, "accurateNo", store.accurateNo);
+            res.redirect("/stores/" + req.params.id);
+        })
     } else {
         res.send("Invalid store id");
     }
@@ -200,5 +195,4 @@ module.exports = {
     storeID,
     increaseYes,
     increaseNo,
-    getAllStores
 };

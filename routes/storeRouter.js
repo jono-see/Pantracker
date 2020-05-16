@@ -14,6 +14,5 @@ storeRouter.get("/search/postcode", function (req, res) {
 });
 storeRouter.get("/:id/plus", storeController.increaseYes);
 storeRouter.get("/:id/minus", storeController.increaseNo);
-storeRouter.get("/list/bigw", storeController.getAllStores);
 
 module.exports = storeRouter;
