@@ -89,7 +89,7 @@ async function changeValue(id, to_change, current_value) {
 }
 
 // Gets the 5 closest stores to the postcode provided
-const nearestStores = (req, res) => {
+const nearestStores = async (req, res) => {
     var postcode = req.params.id;
     var page_title = "Stores closest to postcode "+postcode;
     // Ensures a valid Victorian postcode is provided before searching
@@ -107,11 +107,11 @@ const nearestStores = (req, res) => {
                 url: url,
                 json: true
             },
-            function (error, response, body) {
+            async function (error, response, body) {
                 data = body;
                 coords.push(data["results"][0]["geometry"]["location"]["lat"]);
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
-                closest_stores = distanceMatrix(coords[0], coords[1]);
+                closest_stores = await distanceMatrix(coords[0], coords[1]);
 
                 res.render('nearestStores', {
                     title:page_title,
