@@ -6,9 +6,6 @@ const mongoose = require("mongoose");
 CONNECTION_STRING = "mongodb+srv://jono:<password>@cluster0-ek7nd.mongodb.net/test?retryWrites=true&w=majority";
 MONGO_URL = CONNECTION_STRING.replace("<password>","jono123");
 
-console.log(process.env.MONGO_PASSWORD);
-console.log(MONGO_URL);
-
 mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
     useNewUrlParser: true,
     useCreateIndex: true,

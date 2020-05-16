@@ -1,8 +1,7 @@
-var stores = require("../models/store");
 var request = require("request");
 
 var mongoose = require('mongoose');
-var Woolworths = mongoose.model('woolworths');
+var Stores = mongoose.model('allStores');
 
 const N_TO_LIST_POSTCODE = 5;
 const N_TO_LIST_STORES = 3;
@@ -25,7 +24,7 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Calculates the distance from coordinates to each store then returns closest stores
-function distanceMatrix(lat,long,store_id=-1){
+async function distanceMatrix (lat,long,store_id=-1){
     var i;
     var dist;
     var all_dist = [];
@@ -38,55 +37,59 @@ function distanceMatrix(lat,long,store_id=-1){
         var N_TO_LIST = N_TO_LIST_STORES;
     }
 
-    // Calculate the distance to each store
-    for (i = 0; i < stores.length; i++) {
-        dist = haversineDistance(lat,long,stores[i]["lat"],stores[i]["long"]);
-        if (stores[i]["id"] != store_id) {
-            all_dist.push([stores[i]["id"],dist]);
-        }
-    }
+    await Stores.find(function(err, stores) {
 
-    // Sort list into ascending distance order
-    all_dist = all_dist.sort(function(a, b) {
-        var x = a[1];
-        var y = b[1];
-        return x - y;});
-
-    // Creates array to return with only N_TO_LIST closest stores
-    for (i = 0; i < N_TO_LIST; i++) {
-        var id = all_dist[i][0];
-        store = stores.find(store => store.id === id);
-        var rating = 0;
-        if (store["accurateYes"] + store["accurateNo"] > 0) {
-            rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
+        // Calculate the distance to each store
+        for (i = 0; i < stores.length; i++) {
+            dist = haversineDistance(lat,long,stores[i].latitude,stores[i].longitude);
+            if (stores[i]._id != store_id) {
+                all_dist.push([stores[i]._id,dist]);
+            }
         }
-        closest_dist.push({
-            "id":id,
-            "name":store["name"],
-            "address":store["address"],
-            "distance":all_dist[i][1],
-            "rating":rating,
-            "lat":store["lat"],
-            "long":store["long"]
-        });
-    }
+
+        // Sort list into ascending distance order
+        all_dist = all_dist.sort(function(a, b) {
+            var x = a[1];
+            var y = b[1];
+            return x - y;});
+
+        // Creates array to return with only N_TO_LIST closest stores
+        for (i = 0; i < N_TO_LIST; i++) {
+            var id = all_dist[i][0];
+            store = stores.find(store => store._id === id);
+            var rating = 0;
+            if (store["accurateYes"] + store["accurateNo"] > 0) {
+                rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
+            }
+            closest_dist.push({
+                "id":id,
+                "name":store.name,
+                "address":store.address,
+                "distance":all_dist[i][1],
+                "rating":rating,
+                "lat":store.latitude,
+                "long":store.longitude
+            });
+        }
+        return closest_dist;
+    });
     return closest_dist;
 }
 
 // Increases either the accurateYes or accurateNo values in the data
-function changeValue(id, to_change) {
-    var i;
-    for (i = 0; i < stores.length; i++) {
-        if (stores[i]["id"] == id) {
-            stores[i][to_change] += 1;
-            return;
-        }
+async function changeValue(id, to_change, current_value) {
+
+    if (to_change == "accurateYes") {
+        var newValue = current_value + 1;
+        Stores.updateOne({_id: id}, {accurateYes: newValue});
+    } else if (to_change == "accurateNo") {
+        var newValue = current_value + 1;
+        Stores.updateOne({_id: id}, {accurateNo: newValue});
     }
-    return;
 }
 
-// Gets the 3 closest stores to the postcode provided
-const listStores = (req, res) => {
+// Gets the 5 closest stores to the postcode provided
+const nearestStores = async (req, res) => {
     var postcode = req.params.id;
     var page_title = "Stores closest to postcode "+postcode;
     // Ensures a valid Victorian postcode is provided before searching
@@ -104,11 +107,11 @@ const listStores = (req, res) => {
                 url: url,
                 json: true
             },
-            function (error, response, body) {
+            async function (error, response, body) {
                 data = body;
                 coords.push(data["results"][0]["geometry"]["location"]["lat"]);
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
-                closest_stores = distanceMatrix(coords[0], coords[1]);
+                closest_stores = await distanceMatrix(coords[0], coords[1]);
 
                 res.render('nearestStores', {
                     title:page_title,
@@ -122,85 +125,73 @@ const listStores = (req, res) => {
     }
 };
 
-/*
-// OLD - Returns the closest stores to a different given store
-const listStores = (req, res) => {
-    const curr_store = stores.find(store => store.id == req.params.id);
-
-    if (!curr_store) {
-        res.send("Not a valid store id");
-    } else {
-        var closest_stores;
-        var coords = [];
-
-        closest_stores = distanceMatrix(curr_store["lat"], curr_store["long"], curr_store["id"]);
-        res.send(closest_stores);
-    }
-};
-*/
-
 // Provides information about a given store
-const storeID = (req, res) => {
-    const store = stores.find(store => store.id == req.params.id);
+const storeID = async (req, res) => {
+    var exists = await Stores.exists({_id: req.params.id});
 
-    // Ensures that a valid store id is given before listing
-    if (!store) {
+    if (!exists) {
         res.send("Invalid store id");
     } else {
-        const store_name = store.name;
-        const acc_yes = store.accurateYes;
-        const acc_no = store.accurateNo;
-        var percent = 0;
-        if (acc_yes + acc_no > 0){
-            percent = (acc_yes) / (acc_no + acc_yes) * 100;
-        }
+        Stores.findById(req.params.id, async function (err, store) {
+            const store_name = store.name;
+            const acc_yes = store.accurateYes;
+            const acc_no = store.accurateNo;
+            var percent = 0;
+            if (acc_yes + acc_no > 0) {
+                percent = (acc_yes) / (acc_no + acc_yes) * 100;
+            }
+            var closest_stores = await distanceMatrix(store.latitude, store.longitude, store._id);
+            console.log(closest_stores);
 
-        var closest_stores = distanceMatrix(store.lat, store.long, store.id);
-
-        res.render('storePage', {
-            title: store_name,
-            id:store.id,
-            name: store_name,
-            accurateYes: acc_yes,
-            accurateNo: acc_no,
-            percent: percent,
-            address: store.address,
-            lat: store.lat,
-            long: store.long,
-            closest_stores:closest_stores,
-            API_KEY:API_KEY,
-            MAPBOX_KEY:MAPBOX_KEY
-        })
+            return res.render('storePage', {
+                title: store_name,
+                id: store._id,
+                name: store_name,
+                accurateYes: acc_yes,
+                accurateNo: acc_no,
+                percent: percent,
+                address: store.address,
+                lat: store.latitude,
+                long: store.longitude,
+                closest_stores: closest_stores,
+                API_KEY: API_KEY,
+                MAPBOX_KEY: MAPBOX_KEY
+            })
+        });
     }
 };
 
 // Increases the yes accuracy value
-const increaseYes = (req, res) => {
-    var store_id = req.params.id;
-    const store = stores.find(store => store.id == store_id);
-    if (store) {
-        changeValue(store_id, "accurateYes");
-        res.redirect("/stores/" + store_id);
+const increaseYes = async (req, res) => {
+    var exists = await Stores.exists({_id: req.params.id});
+
+    if (exists) {
+        Stores.findById(req.params.id, function (err, store) {
+
+            changeValue(req.params.id, "accurateYes", store.accurateYes);
+            res.redirect("/stores/" + req.params.id);
+        })
     } else {
         res.send("Invalid store id");
     }
 };
 
 // Increases the no accuracy value
-const increaseNo = (req, res) => {
-    var store_id = req.params.id;
-    const store = stores.find(store => store.id == store_id);
-    if (store) {
-        changeValue(store_id, "accurateNo");
-        res.redirect("/stores/" + store_id);
+const increaseNo = async (req, res) => {
+    var exists = await Stores.exists({_id: req.params.id});
+
+    if (exists) {
+        Stores.findById(req.params.id, function (err, store) {
+            changeValue(req.params.id, "accurateNo", store.accurateNo);
+            res.redirect("/stores/" + req.params.id);
+        })
     } else {
         res.send("Invalid store id");
     }
 };
 
 module.exports = {
-//    displayMap,
-    listStores,
+    nearestStores,
     storeID,
     increaseYes,
     increaseNo,
