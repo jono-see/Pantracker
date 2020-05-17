@@ -17,60 +17,54 @@ sample input would be {"productName": "tomato", "postcode": "3000", "depth": "1"
 - https://info30005-pantracker.herokuapp.com/product/clear (GET)
 clear the products that have been searched for using
 
-### Store rating
-Allows users to rate whether they found the product/s they were looking for at a given store. Values can either be changed using on-screen buttons (currently non-functional), or by HTML request.
+### Store details and rating
+Allows users to find out more information about a store (address, location on map, rating), then rate the store if they found the products they were looking for there. Users can only rate each store once daily, handled by browser cookies. This page also displays the 3 stores nearest to the store being viewed.
 
-
-URL for seeing store rating (Note: Displays a HTML page):
-
+Available at:
 https://info30005-pantracker.herokuapp.com/stores/[id]
 
-
-
-
-
-Increase or decrease rating by URL:
-
-https://info30005-pantracker.herokuapp.com/stores/[id]/plus
-
-https://info30005-pantracker.herokuapp.com/stores/[id]/minus
-
+Links to stores are available from the "Nearest stores" page, outlined below.
 
 
 ### Nearest stores
-Allows users to find the nearest 3 stores to a postcode they provide from the sample dataset.
-
-Can be accessed through this URL:
+Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
 
 https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]
 
-
-Users are also able to find the 3 closest stores to a given store through this URL:
-
-https://info30005-pantracker.herokuapp.com/stores/[id]/closest
-
+On this page a map will be displayed, centred at the postcode they searched for, showing the 5 nearest stores to that postcode. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
 
 ### URL parameters
 
-[id] - store id, any number between 1 and 6 for this sample data
+[id] - store id, numbers between 1 and XX for this dataset
 
 [postcode] - any victorian postcode, in format 3XXX
 
 
 
 ## Data Sources
-While the project is linked to MongoDB, the project still runs of a sample dataset instead of the database, located at
-/models/store.js. The data is in the following format:
+This project is linked to MongoDB, using two collections. The first, "AllStores", contains relevant information about all Woolworths, Big W, and Officeworks stores in the state. The data is in the following format:
 
 ```
 {
-    "id":1,                                             // store id
-    "name":"Woolworths - Bourke St Metro",              // store name
-    "lat":-37.815699,                                   // latitude of the store
-    "long":144.955957,                                  // longitude of the store
-    "address":"600 Bourke St, Melbourne VIC 3000",      // store address
-    "accurateYes":13,                                   // sample of number of users who have positively rated store
-    "accurateNo":2                                      // sample of number of users who have negatively rated store
+    "_id":1,                                        // store id
+    "name":"Big W Narre Warren",                    // store name
+    "brand":"Big W",                                // brand - one of "Big W", "Officeworks", "Woolworths", "Metro"
+    "address":"352 Princes Hwy, Narre Warren",      // store address
+    "postcode":"3805",                              // store postcode
+    "latitude":-37.815699,                          // latitude of the store (as a float)
+    "longitude":144.955957,                         // longitude of the store (as a float)
+    "accurateYes":1,                                // number of users who have positively rated store (default is 1)
+    "accurateNo":0                                  // number of users who have negatively rated store (default is 0)
+ }
+ ```
+ 
+ The second collection, "User", stores information about registered users to the app. Data is in the following format:
+ ```
+ {
+    "_id":"5ec0463dd151ccc8fca35ad6"            // automatically generated user id
+    "name":"michael"                            // username
+    "password":                                 // hashed password
+    "searchResults":Array                       // the current results of the user's search, to get around limits on heroku
  }
  ```
 
