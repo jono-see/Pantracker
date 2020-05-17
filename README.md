@@ -2,9 +2,14 @@
 
 ## Key functionalities
 
-ISSUES:
-- the '/' page and the '/product/search' page might not be working properly on heroku. the '/' page is meant to show which user is logged in and the '/product/search' page might forever load.
-- this might be because issues with heroku and '.script' in 'pug.js' files as there are no issues when the app is run locally. the app was build in this way, however, because heroku requires explicit routing responses within 30 seconds, therefore results from the webscraping must be checked for constantly. that is why this particular design pattern was used.
+issues:
+
+Currently the 'product search'  front end functionality is only working locally. Because Heroku requires a response within 30 seconds before throwing a H12 error, the 'product/search' functionality re renders the homepage before completing the web scraping in the background. This means for the front end,  we must keep checking whether results have been returned, this checking is done using Javascript in the 'productSearch.pug' file. This works fine when running the app locally and renders the results without an issue. Furthermore, when running the app online 'searchResults' are returned to '/user/data'. However, for some reason they are not rendered. A similar issue occurs when trying to render "logged in as 'username'". The username value exists in the backend under 'user/sessionId', but is not rendered in the 'index.pug' file.
+
+summary:
+
+the '/' page and the '/product/search' page might not be working properly on heroku. the '/' page is meant to show which user is logged in and the '/product/search' page might forever load.
+this might be because issues with heroku and '.script' in 'pug.js' files as there are no issues when the app is run locally. the app was build in this way, however, because heroku requires explicit routing responses within 30 seconds, therefore results from the webscraping must be checked for constantly. that is why this particular design pattern was used.
 
 ### Search function
 Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
