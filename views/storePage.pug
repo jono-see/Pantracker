@@ -60,6 +60,13 @@ block content
                         document.getElementById("rate_wrapper").appendChild(newText);
                     }
                 }
+            script.
+                if ("#{closest_stores}" == "") {
+                    console.log("Reload");
+                    location.reload();
+                }
+                console.log("closest_stores: #{closest_stores}");
+                console.log("type: " + typeof("#{closest_stores}"));
             h2 #{name}
             p Address: #{address}
             div#rate_wrapper

@@ -13,6 +13,11 @@ html
             crossorigin='')
 
 block content
+    script.
+        if ("#{closest_stores}" == "") {
+            console.log("Reload");
+            location.reload();
+        }
     div#home
         a(href="/")
             button(type="button")
