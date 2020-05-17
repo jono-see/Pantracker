@@ -48,8 +48,6 @@ block content
 
                 function removeButtons() {
                     var rated = getCookie("rated#{id}");
-                    console.log("Total cookie: "+ document.cookie);
-                    console.log("Rated: " + rated);
                     if (rated == "true") {
                         var yes = document.getElementById("yes_button");
                         var no = document.getElementById("no_button");
