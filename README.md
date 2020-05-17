@@ -2,20 +2,35 @@
 
 ## Key functionalities
 
+ISSUES:
+- the '/' page and the '/product/search' page might not be working properly on heroku. the '/' page is meant to show which user is logged in and the '/product/search' page might forever load.
+- this might be because issues with heroku and '.script' in 'pug.js' files as there are no issues when the app is run locally. the app was build in this way, however, because heroku requires explicit routing responses within 30 seconds, therefore results from the webscraping must be checked for constantly. that is why this particular design pattern was used.
+
 ### Search function
 Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
 
 The scraping functionality uses the "puppeteer" package which is aproximately 300mb, thus it is included in the .gitignore file. Furthermore, to use the package on a cloud service, like Heroku, it requires the installation of a buildpack (heroku buildpacks:add jontewks/puppeteer). Thus the final push to the heroku server was done through the Heroku CLI and not through Github.
 
-- https://info30005-pantracker.herokuapp.com/product (GET)
-displays all products that have been searched for
-
 - https://info30005-pantracker.herokuapp.com/product/search (POST)
 searches for a product, given a specific "productName", "postcode" and "depth" which limits the number of results found.
-sample input would be {"productName": "tomato", "postcode": "3000", "depth": "1"} (POST)
+sample input would be ```{"productName": "tomato", "postcode": "3000", "depth": "1"}```
 
-- https://info30005-pantracker.herokuapp.com/product/clear (GET)
+- https://info30005-pantracker.herokuapp.com/product/delete (GET)
 clear the products that have been searched for using
+
+### User functionality
+allows the registration and authentication of a user. Links user product searches to the account they were made on.
+
+- https://info30005-pantracker.herokuapp.com/user/register (POST)
+register with a username and password. password is hashed before it is stored in the 'User' collection.
+input: ```{username: username, password, password}```
+
+- https://info30005-pantracker.herokuapp.com/user/login (POST)
+Authenticates a username and password. If authenticated, stores a user unique session id in ```req.session.userId```. 
+input: ```{username: username, password, password}```
+
+- https://info30005-pantracker.herokuapp.com/user/data (GET)
+Returns a list of product searches a user has made.
 
 ### Store details and rating
 Allows users to find out more information about a store (address, location on map, rating), then rate the store if they found the products they were looking for there. Users can only rate each store once daily, handled by browser cookies. This page also displays the 3 stores nearest to the store being viewed.
