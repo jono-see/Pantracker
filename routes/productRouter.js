@@ -27,7 +27,6 @@ router.post('/search', requiresLogin, function (req, res, next) {
     scrapeOfficeworks(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
             // products.push(val)
-            console.log(val);
                 User.update(
                     { "username" : req.session.userId },
                     { "$push" : { "searchResults" : {
@@ -39,7 +38,7 @@ router.post('/search', requiresLogin, function (req, res, next) {
                         "productStatus": val.productStatus
                     }} }
                     ).then(result => {
-                        console.log(result);
+                        console.log("success Officeworks...");
                       })
                       .catch(err => console.log(err));
         }); 
@@ -48,7 +47,6 @@ router.post('/search', requiresLogin, function (req, res, next) {
     scrapeWoolworths(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
             // products.push(val)
-            console.log(val);
                 User.update(
                     { "username" : req.session.userId },
                     { "$push" : { "searchResults" : {
@@ -60,7 +58,7 @@ router.post('/search', requiresLogin, function (req, res, next) {
                         "productStatus": val.productStatus
                     }} }
                     ).then(result => {
-                        console.log(result);
+                        console.log("success Woolworths...");
                       })
                       .catch(err => console.log(err));
         }); 
@@ -69,7 +67,6 @@ router.post('/search', requiresLogin, function (req, res, next) {
     scrapeBigW(productName, postcode, depth).then((values) => {
         values.forEach(function(val) {
             // products.push(val)
-            console.log(val);
                 User.update(
                     { "username" : req.session.userId },
                     { "$push" : { "searchResults" : {
@@ -81,7 +78,7 @@ router.post('/search', requiresLogin, function (req, res, next) {
                         "productStatus": val.productStatus
                     }} }
                     ).then(result => {
-                        console.log(result);
+                        console.log("success BigW...");
                       })
                       .catch(err => console.log(err));
 

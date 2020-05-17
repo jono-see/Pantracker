@@ -127,7 +127,17 @@ form input[type=text] {
     padding: 1vh 8.3vw;
 }
 
-.searchTerm {
+/* .searchTerm {
+    width: 100vw;
+    border-right: none;
+    padding: 1vh;
+    height: 1.5vh;
+    border-radius: 1.5vh 1.5vh 1.5vh 1.5vh;
+    outline: none;
+    margin-left: 1vh;
+} */
+
+input {
     width: 100vw;
     border-right: none;
     padding: 1vh;
@@ -136,7 +146,6 @@ form input[type=text] {
     outline: none;
     margin-left: 1vh;
 }
-
 
 
 #footer {
