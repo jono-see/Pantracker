@@ -99,3 +99,9 @@ h2 {
     margin-right: 1.5vw;
 }
 
+.store-details {
+    border-radius: 25px;
+    border: 2px solid darkslateblue;
+    padding: 15px;
+}
+

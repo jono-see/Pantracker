@@ -71,3 +71,9 @@ h3{
     z-index: 2;
 }
 
+.store-details {
+    border-radius: 25px;
+    border: 2px solid darkslateblue;
+    padding: 15px;
+}
+
