@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 var Stores = mongoose.model('allStores');
 
 // Constants for the number of nearest stores to calculate
-const N_TO_LIST_POSTCODE = 5;
-const N_TO_LIST_STORES = 3;
+const N_TO_LIST = 3;
 
 // Constants for Google Maps and Mapbox APIs
 const URL_BASE = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -25,18 +24,11 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 // Calculates the distance from coordinates to each store then returns closest stores
-async function distanceMatrix (lat,long,store_id=-1){
+async function distanceMatrix (lat,long,store_id=-1,distance){
     var i;
     var dist;
     var all_dist = [];
     var closest_dist = [];
-
-    // Determines if the function was called asking for stores closest to a postcode or another store
-    if (store_id == -1) {
-        var N_TO_LIST = N_TO_LIST_POSTCODE;
-    } else {
-        var N_TO_LIST = N_TO_LIST_STORES;
-    }
 
     // Finds all stores from the database so that distances can be measures
     await Stores.find(function(err, stores) {
@@ -55,28 +47,60 @@ async function distanceMatrix (lat,long,store_id=-1){
             var y = b[1];
             return x - y;});
 
-        // Creates array to return with only N_TO_LIST closest stores
-        for (i = 0; i < N_TO_LIST; i++) {
-            var id = all_dist[i][0];
-            store = stores.find(store => store._id === id);
-            var rating = 0;
-            if (store["accurateYes"] + store["accurateNo"] > 0) {
-                rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
-            }
+        if (store_id != -1) {
+            // Creates array to return with only N_TO_LIST closest stores
+            for (i = 0; i < N_TO_LIST; i++) {
+                var id = all_dist[i][0];
+                store = stores.find(store => store._id === id);
+                var rating = 0;
+                if (store["accurateYes"] + store["accurateNo"] > 0) {
+                    rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
+                }
 
-            // Add relevant data to array to be later sent to pug page
-            closest_dist.push({
-                "id":id,
-                "name":store.name,
-                "address":store.address,
-                "distance":all_dist[i][1],
-                "rating":rating,
-                "lat":store.latitude,
-                "long":store.longitude
-            });
+                // Add relevant data to array to be later sent to pug page
+                closest_dist.push({
+                    "id":id,
+                    "name":store.name,
+                    "address":store.address,
+                    "distance":all_dist[i][1],
+                    "rating":rating,
+                    "lat":store.latitude,
+                    "long":store.longitude
+                });
+            }
+        } else {
+            for (i = 0; i < all_dist.length; i++) {
+                if (all_dist[i][1] <= distance) {
+                    var id = all_dist[i][0];
+                    store = stores.find(store => store._id === id);
+                    var rating = 0;
+                    if (store["accurateYes"] + store["accurateNo"] > 0) {
+                        rating = (store["accurateYes"] / (store["accurateYes"] + store["accurateNo"]))*100;
+                    }
+
+                    // Add relevant data to array to be later sent to pug page
+                    closest_dist.push({
+                        "id":id,
+                        "name":store.name,
+                        "address":store.address,
+                        "distance":all_dist[i][1],
+                        "rating":rating,
+                        "lat":store.latitude,
+                        "long":store.longitude
+                    });
+                } else {
+                    break
+                }
+            }
+        }
+        if (closest_dist.length == 0) {
+            closest_dist = "No stores nearby"
         }
         return closest_dist;
     });
+    if (closest_dist.length == 0) {
+        closest_dist = "No stores nearby"
+    }
     return closest_dist;
 }
 
@@ -96,13 +120,17 @@ async function changeValue(id, to_change, current_value) {
 // Gets the 5 closest stores to the postcode provided
 const nearestStores = async (req, res) => {
     var postcode = req.params.id;
+    var distance = req.params.distance;
     var page_title = "Stores closest to postcode "+postcode;
 
     // Ensures a valid Victorian postcode is provided before searching
     if (!(postcode[0] == "3" && postcode.length == 4)) {
         res.send("Not a valid Victorian postcode");
+    } else if (isNaN(distance)) {
+        res.send("Distance must be a number");
     }
     else {
+        distance = parseInt(distance);
         var address = postcode + "+VIC+Australia";
         var url = URL_BASE + address + "&key=" + API_KEY;
         var coords = [];
@@ -117,7 +145,7 @@ const nearestStores = async (req, res) => {
                 data = body;
                 coords.push(data["results"][0]["geometry"]["location"]["lat"]);
                 coords.push(data["results"][0]["geometry"]["location"]["lng"]);
-                closest_stores = await distanceMatrix(coords[0], coords[1]);
+                closest_stores = await distanceMatrix(coords[0], coords[1], -1, distance);
 
                 // Renders the nearestStores pug page with relevant data
                 res.render('nearestStores', {
@@ -150,7 +178,7 @@ const storeID = async (req, res) => {
             if (acc_yes + acc_no > 0) {
                 percent = (acc_yes) / (acc_no + acc_yes) * 100;
             }
-            var closest_stores = await distanceMatrix(store.latitude, store.longitude, store._id);
+            var closest_stores = await distanceMatrix(store.latitude, store.longitude, store._id, 0);
 
             return res.render('storePage', {
                 title: store_name,
