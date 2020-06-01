@@ -125,9 +125,13 @@ const nearestStores = async (req, res) => {
 
     // Ensures a valid Victorian postcode is provided before searching
     if (!(postcode[0] == "3" && postcode.length == 4)) {
-        res.send("Not a valid Victorian postcode");
+        res.render('error', {
+            message:"Not a valid Victorian postcode"
+        });
     } else if (isNaN(distance)) {
-        res.send("Distance must be a number");
+        res.render('error', {
+            message:"Distance must be a number"
+        });
     }
     else {
         distance = parseInt(distance);
@@ -162,11 +166,18 @@ const nearestStores = async (req, res) => {
 
 // Provides information about a given store
 const storeID = async (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.render('error', {
+            message:"Invalid store id"
+        });
+    }
     var exists = await Stores.exists({_id: req.params.id});
 
     // Ensures that is is a valid store id
     if (!exists) {
-        res.send("Invalid store id");
+        res.render('error', {
+            message:"Invalid store id"
+        });
     } else {
 
         // Finds the relevant store within the database
@@ -210,7 +221,9 @@ const increaseYes = async (req, res) => {
             res.redirect("/stores/" + req.params.id);
         })
     } else {
-        res.send("Invalid store id");
+        res.render('error', {
+            message:"Invalid store id"
+        });
     }
 };
 
@@ -225,7 +238,9 @@ const increaseNo = async (req, res) => {
             res.redirect("/stores/" + req.params.id);
         })
     } else {
-        res.send("Invalid store id");
+        res.render('error', {
+            message:"Invalid store id"
+        });
     }
 };
 
