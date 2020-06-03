@@ -3,29 +3,46 @@ meta(name="viewport",content="width=device-width, initial-scale=1.0")
 html
     head
         title= "Pantracker"
-        link(rel='stylesheet', href='/stylesheets/index.css')
+        link(rel='stylesheet', href='/stylesheets/user.css')
 body
+    div#home
+        a(href="/")
+            button#homebutton(type="button")
+    div#heading
+        h1 Login or register
     div#content
-        div#product-search
+        div#login
             h2 login
             form(method="POST" action="/user/login")
                 div
-                    label username:
-                    input(type='text', name='username')
+                    label Email:
+                    input(type='email', name='username')
                 div
-                    label password:
-                    input(type='text', name='password')
-                button(type='submit') login
+                    label Password:
+                    input(type='password', name='password')
+                if loginMessage
+                    p.errorMessage #{loginMessage}
+                else
+                    br
+                button.submit(type='submit') login
+
             //- form(method="GET" action="/user/logout")
             //- button(type='submit') logout
-        div#postcode-search
+        div#register
             h2 register
             form(method="POST" action="/user/register")
                 div
-                    label username:
-                    input(type='text', name='username')
+                    label Email:
+                    input(type='email', name='username')
                 div
-                    label password:
-                    input(type='text', name='password')
-                button(type='submit') register
+                    label Name:
+                    input(type='text', name='name')
+                div
+                    label Password:
+                    input(type='password', name='password')
+                if registerMessage
+                    p.errorMessage #{registerMessage}
+                else
+                    br
+                button.submit(type='submit') register
 

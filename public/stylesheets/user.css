@@ -27,73 +27,40 @@ body {
     width: 100vw;
 }
 
-header {
-    position: relative;
-    top: 50vh;
-    left: 50vh;
-    margin-right: -50vw;
-    transform: translate(-50%, -50%);
-
+#homebutton {
+    background: url("../images/profile.png");
+    background-size: 100%;
+    width: 10vw;
+    height: 9vh;
+    border: none;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    cursor: pointer;
 }
-
-h1 {
-    text-align: center;
-    color: white;
-    font-family: Signika-Regular, Signika;
-    font-size: 13vh;
-    text-shadow: 0.2vh 0.2vw 5vh #000000;
-    font-weight: 700;
-    line-height: 3vh;
-    padding: 20vh 30vh;
-    text-transform: uppercase;
-    position: absolute;
-    top: 35vh;
-    left: 50vw;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    z-index: -2;
-}
-
-h2 {
-    text-align: center;
-    color: white;
-    text-shadow: 0.2vh 0.2vw 6vh #000000;
-    font-family: 'Signika-Light', Signika;
-    text-transform: uppercase;
-}
-
-
-#content {
-    width: 100vw;
-    background-color: #ffcc33;
-    text-align: center;
-    margin: 0 auto;
-}
-
-#product-search {
-    width: 50vh;
-    float: left;
-    margin-top: 42vh;
-    text-align: center;
-    margin-left: 25vw;
-}
-
-
-#postcode-search {
-    width: 50vh;
-    float: left;
-    margin-top: 42vh;
-
-}
-
-form {
-    color: white;
+.errorMessage {
+    color: red;
     font-family: 'Montserrat-Mediumt', Montserrat;
     font-size: 2.25vh;
     text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+    margin-left: 1vh;
 }
 
-button {
+#heading {
+    color: #f1f1f1;
+    text-align: center;
+    padding: 1vh;
+    z-index: -1;
+}
+
+#home {
+    position: absolute;
+    top: 0vh;
+    left: 0vw;
+    font-size: 12vh;
+    z-index: 50;
+}
+
+.submit{
     border-radius:6vh;
     display:inline-block;
     cursor:pointer;
@@ -108,33 +75,60 @@ button {
     margin-right: 1.5vh;
 }
 
-form input[type=text] {
-    margin-top: 1vh;
-    margin-right: 1vw;
-    font-size: 2vh;
-    width: 14vw;
-    background-color: rgba(255,255,255,0.5);
-    z-index: 10;
+h1 {
+    text-align: center;
+    color: white;
+    font-family: Signika-Regular, Signika;
+    font-size: 13vh;
+    text-shadow: 0.2vh 0.2vw 5vh #000000;
+    font-weight: 700;
+    line-height: 3vh;
+    padding: 20vh 30vh;
+    text-transform: uppercase;
+    position: absolute;
+    top: 25vh;
+    left: 50vw;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
 }
 
-#search {
-    width: 25vw;
-    position: relative;
+h2 {
+    text-align: center;
+    color: white;
+    text-shadow: 0.2vh 0.2vw 6vh #000000;
+    font-family: 'Signika-Light', Signika;
+    text-transform: uppercase;
 }
 
-.space {
-    padding: 1vh 8.3vw;
-}
-
-/* .searchTerm {
+#content {
     width: 100vw;
-    border-right: none;
-    padding: 1vh;
-    height: 1.5vh;
-    border-radius: 1.5vh 1.5vh 1.5vh 1.5vh;
-    outline: none;
-    margin-left: 1vh;
-} */
+    background-color: #ffcc33;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#login {
+    width: 50vh;
+    float: left;
+    margin-top: 42vh;
+    text-align: center;
+    margin-left: 25vw;
+}
+
+#register {
+    width: 50vh;
+    float: left;
+    margin-top: 42vh;
+
+}
+
+form {
+    color: white;
+    font-family: 'Montserrat-Mediumt', Montserrat;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+}
 
 input {
     width: 100vw;
@@ -146,23 +140,27 @@ input {
     margin-left: 1vh;
 }
 
-
-#footer {
-    height: 40px;
-    position: fixed;
-    bottom:0%;
-    width:100%;
-    color: white;
+form input[type=text] {
+    margin-top: 1vh;
+    margin-right: 1vw;
+    font-size: 2vh;
+    width: 14vw;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 10;
 }
-/* /* Background image from https://pixabay.com/photos/tangerines-fruit-orange-ripe-3105628/
-
-*/
-
-#status {
-    color: white;
-    font-family: 'Montserrat-Mediumt', Montserrat;
-    font-size: 2.25vh;
-    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
-    margin-left: 1vh;
+form input[type=email] {
+    margin-top: 1vh;
+    margin-right: 1vw;
+    font-size: 2vh;
+    width: 14vw;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 10;
 }
-
+form input[type=password] {
+    margin-top: 1vh;
+    margin-right: 1vw;
+    font-size: 2vh;
+    width: 14vw;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 10;
+}
