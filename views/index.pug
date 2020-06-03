@@ -6,30 +6,41 @@ html
         link(rel='stylesheet', href='/stylesheets/index.css')
 body
     div
+        p#status
+        form#logout_form(method="GET" action="/user/logout")
+            button.login(type='submit') Logout
         script.
+
             function httpGet(theUrl) {
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
                 xmlHttp.send( null );
                 return xmlHttp;
-            }
-            var xml = httpGet("http://localhost:3000/user/sessionId");
-            var username = xml.responseText;
-            console.log("Username: ", username)
+            };
+            window.onload = function() {
+                let xml = httpGet("http://localhost:3000/user/sessionId");
+                let responseText = xml.responseText;
+                if (responseText.length == 0) {
+                    document.getElementById("status").innerText = "";
+                    var login_form = document.getElementById("logout_form");
+                    login_form.parentNode.removeChild(login_form);
+                    var search_form = document.getElementById("product_search_form");
+                    search_form.parentNode.removeChild(search_form);
 
-        if username == ""
-            form(method="GET" action="/user/")
-                button.login(type='submit') Login/Register
-        else
-            form(method="GET" action="/user/logout")
-                button.login(type='submit') Logout
-            p#status= "Successfully logged in as #{username}"
+                } else {
+                    document.getElementById("status").innerText = "Logged in as" + " " + responseText;
+                    var login_form = document.getElementById("login_form");
+                    login_form.parentNode.removeChild(login_form);
+                    var message = document.getElementById("not_logged_in_message");
+                    message.parentNode.removeChild(message);
+                }
+            }
     div#content
         h1 Pantracker
         div#product-search
             h2 Search for products
 
-            form(method="POST" action="/product/search")
+            form#product_search_form(method="POST" action="/product/search")
                 div
                     label Product:
                     input(type='text', name='productName')
@@ -40,6 +51,9 @@ body
                     label Depth:
                     input(type='text', name='depth')
                 button.space(type='submit') Search
+            p#not_logged_in_message Login or Register before searching
+            form#login_form(method="GET" action="/user/")
+                button(type='submit') Login/Register
         div#postcode-search
             h2 Search for nearby stores
             form(method="GET" action="/stores/search/postcode")

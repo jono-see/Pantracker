@@ -169,3 +169,10 @@ input {
 .login {
     color: black;
 }
+
+#not_logged_in_message{
+    color: white;
+    font-family: 'Montserrat-Mediumt', Montserrat;
+    font-size: 2.25vh;
+    text-shadow: 0.2vh 0.2vw 1.5vh #000000;
+}
