@@ -6,31 +6,24 @@ html
         link(rel='stylesheet', href='/stylesheets/index.css')
 body
     div
-        form(method="GET" action="/user/")
-            button.login(type='submit') Login/Register
-        form(method="GET" action="/user/logout")
-            button.login(type='submit') Logout
-        div(id = "status")
-        
-            script.
+        script.
+            function httpGet(theUrl) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+                xmlHttp.send( null );
+                return xmlHttp;
+            }
+            var xml = httpGet("http://localhost:3000/user/sessionId");
+            var username = xml.responseText;
+            console.log("Username: ", username)
 
-                function httpGet(theUrl) {
-                    var xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-                    xmlHttp.send( null );
-                    return xmlHttp;
-                };
-
-                window.onload = function() {
-                    let xml = httpGet("http://localhost:3000/user/sessionId");
-                    let responseText = xml.responseText;
-                    if (responseText.length == 0) {
-                        document.getElementById("status").innerText = "";
-                    } else {
-                        document.getElementById("status").innerText = "logged in as" + " " + responseText;
-                    }
-                }
-
+        if username == ""
+            form(method="GET" action="/user/")
+                button.login(type='submit') Login/Register
+        else
+            form(method="GET" action="/user/logout")
+                button.login(type='submit') Logout
+            p#status= "Successfully logged in as #{username}"
     div#content
         h1 Pantracker
         div#product-search

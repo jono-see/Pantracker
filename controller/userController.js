@@ -5,9 +5,9 @@ var User = mongoose.model('User');
 const registerUser = async (req, res, next) => {
     // Ensure all fields are there
     var exists = await User.exists({username: req.body.username});
-    if (!(req.body.username && req.body.password && req.body.name)) {
+    if (!(req.body.username && req.body.password)) {
         res.render('user', {
-            registerMessage: "All fields are required"
+            registerMessage: "Email and password required"
         });
     }
     // Ensure email is not already in database
@@ -18,7 +18,6 @@ const registerUser = async (req, res, next) => {
     } else {
         var userData = {
             username: req.body.username,
-            name: req.body.name,
             password: req.body.password
         };
         //use schema.create to insert data into the db

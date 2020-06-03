@@ -16,7 +16,7 @@ userRouter.get('/logout', function(req, res, next) {
         if(err) {
           return next(err);
         } else {
-          return res.render('index');
+          return res.redirect('/');
         }
       });
     }
