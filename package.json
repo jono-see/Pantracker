@@ -9,11 +9,8 @@
   "author": "Shen Black, Mitch French, Michael Jaworski, Jonathan See",
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^2.6.0",
-<<<<<<< HEAD
     "chai-http": "^4.3.0",
-=======
     "bcrypt": "^4.0.1",
->>>>>>> 875b1b9ccfce947867a1f711d7b38d21cdc1b48d
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
