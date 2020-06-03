@@ -48,8 +48,6 @@ block content
 
                 function removeButtons() {
                     var rated = getCookie("rated#{id}");
-                    console.log("Total cookie: "+ document.cookie);
-                    console.log("Rated: " + rated);
                     if (rated == "true") {
                         var yes = document.getElementById("yes_button");
                         var no = document.getElementById("no_button");
@@ -62,6 +60,13 @@ block content
                         document.getElementById("rate_wrapper").appendChild(newText);
                     }
                 }
+            script.
+                if ("#{closest_stores}" == "") {
+                    console.log("Reload");
+                    location.reload();
+                }
+                console.log("closest_stores: #{closest_stores}");
+                console.log("type: " + typeof("#{closest_stores}"));
             h2 #{name}
             p Address: #{address}
             div#rate_wrapper
@@ -80,7 +85,7 @@ block content
                     p #{store.address}
                     - var formatted_rating = store.rating.toFixed(2);
                     p Rating: #{formatted_rating}%
-                    br
+                br
 
         div#map-container
             div(id="mapid", style='width: 78vw; height: 85.5vh;')

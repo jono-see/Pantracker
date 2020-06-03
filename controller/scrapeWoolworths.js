@@ -4,7 +4,7 @@ async function scrapeWoolworths(productName, postcode, depth) {
 
     let puppeteerArgs = [
         '--no-sandbox',
-        '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
+        '--user-agent="let me scrape u plz"'
     ];
 
     let searchUrl = 'https://www.woolworths.com.au/shop/search/products?searchTerm=' + productName;

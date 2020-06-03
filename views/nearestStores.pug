@@ -13,6 +13,11 @@ html
             crossorigin='')
 
 block content
+    script.
+        if ("#{closest_stores}" == "") {
+            console.log("Reload");
+            location.reload();
+        }
     div#home
         a(href="/")
             button(type="button")
@@ -31,52 +36,25 @@ block content
                 accessToken: "#{MAPBOX_KEY}"
             }).addTo(map_closest);
 
-            var lat;
-            var long;
-            var name;
-            var address;
-
-            lat = "#{closest_stores[0].lat}";
-            long = "#{closest_stores[0].long}";
-            var marker0 = L.marker([lat, long]).addTo(map_closest);
-            name = "#{closest_stores[0].name}";
-            address = "#{closest_stores[0].address}";
-            marker0.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[0].id}' target='_blank'>More Info</a>");
-
-            lat = "#{closest_stores[1].lat}";
-            long = "#{closest_stores[1].long}";
-            var marker1 = L.marker([lat, long]).addTo(map_closest);
-            name = "#{closest_stores[1].name}";
-            address = "#{closest_stores[1].address}";
-            marker1.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[1].id}' target='_blank'>More Info</a>");
-
-            lat = "#{closest_stores[2].lat}";
-            long = "#{closest_stores[2].long}";
-            var marker2 = L.marker([lat, long]).addTo(map_closest);
-            name = "#{closest_stores[2].name}";
-            address = "#{closest_stores[2].address}";
-            marker2.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[2].id}' target='_blank'>More Info</a>");
-
-            lat = "#{closest_stores[3].lat}";
-            long = "#{closest_stores[3].long}";
-            var marker3 = L.marker([lat, long]).addTo(map_closest);
-            name = "#{closest_stores[3].name}";
-            address = "#{closest_stores[3].address}";
-            marker3.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[3].id}' target='_blank'>More Info</a>");
-
-            lat = "#{closest_stores[4].lat}";
-            long = "#{closest_stores[4].long}";
-            var marker4 = L.marker([lat, long]).addTo(map_closest);
-            name = "#{closest_stores[4].name}";
-            address = "#{closest_stores[4].address}";
-            marker4.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{closest_stores[4].id}' target='_blank'>More Info</a>");
+        if closest_stores != "No stores nearby"
+            each store in closest_stores
+                script.
+                    var lat = "#{store.lat}"
+                    var long = "#{store.long}"
+                    var name = "#{store.name}"
+                    var address = "#{store.address}"
+                    var marker = L.marker([lat, long]).addTo(map_closest);
+                    marker.bindPopup("<b>" + name + "</b><br>" + address + "<br><a href='/stores/#{store.id}' target='_blank'>More Info</a>");
     div#store_list
         div#layer
             h3 List of nearby stores
-            each store in closest_stores
-                div(class="store-details")
-                    a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
-                    p #{store.address}
-                    - var formatted_rating = store.rating.toFixed(2);
-                    p Rating: #{formatted_rating}%
+            if closest_stores != "No stores nearby"
+                each store in closest_stores
+                    div(class="store-details")
+                        a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
+                        p #{store.address}
+                        - var formatted_rating = store.rating.toFixed(2);
+                        p Rating: #{formatted_rating}%
                     br
+            else
+                h2 #{closest_stores}

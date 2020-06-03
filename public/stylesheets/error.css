@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
-    padding: 0
+    padding: 0;
+    background: #ccc
 }
 
 @font-face {
@@ -14,13 +15,11 @@ html, body {
     src: url("../fonts/Montserrat/Montserrat-Regular.ttf");
 }
 
-
 #heading {
     color: #f1f1f1;
     text-align: center;
     padding: 1vh;
     background-image: url("../images/tangerines.jpg");
-    z-index: -1;
 }
 
 #home {
@@ -38,6 +37,13 @@ h1{
     font-size: 5vh;
 }
 
+h2{
+    text-align: center;
+    font-family: 'Signika-Bold', Signika;
+    font-size: 4vh;
+}
+
+
 button {
     background: url("../images/profile.png");
     background-size: 100%;
@@ -48,32 +54,3 @@ button {
     margin-top: 1vh;
     cursor: pointer;
 }
-
-h3{
-    font-family: 'Signika-Regular', Signika;
-    text-transform: uppercase;
-    font-size: 3vh;
-}
-
-#store_list {
-    display: inline-block;
-    width: 100vw;
-    background-image: url("../images/tangerines.jpg");
-    position: absolute;
-    z-index: 1;
-    font-family: "Montserrat-Regular", Montserrat;
-}
-
-#layer {
-    display: inline-block;
-    width: 100vw;
-    background-color: rgba(255,255,255,0.5);
-    z-index: 2;
-}
-
-.store-details {
-    border-radius: 25px;
-    border: 2px solid darkslateblue;
-    padding: 15px;
-}
-

@@ -1,0 +1,45 @@
+doctype html
+meta(name="viewport",content="width=device-width, initial-scale=1.0")
+html
+    head
+        title= "Pantracker"
+        link(rel='stylesheet', href='/stylesheets/user.css')
+body
+    div#home
+        a(href="/")
+            button#homebutton(type="button")
+    div#heading
+        h1 Login or register
+    div#content
+        div#login
+            h2 login
+            form(method="POST" action="/user/login")
+                div
+                    label Email:
+                    input(type='email', name='username')
+                div
+                    label Password:
+                    input(type='password', name='password')
+                if loginMessage
+                    p.errorMessage #{loginMessage}
+                else
+                    br
+                button.submit(type='submit') login
+
+            //- form(method="GET" action="/user/logout")
+            //- button(type='submit') logout
+        div#register
+            h2 register
+            form(method="POST" action="/user/register")
+                div
+                    label Email:
+                    input(type='email', name='username')
+                div
+                    label Password:
+                    input(type='password', name='password')
+                if registerMessage
+                    p.errorMessage #{registerMessage}
+                else
+                    br
+                button.submit(type='submit') register
+

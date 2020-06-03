@@ -1,0 +1,64 @@
+doctype html
+meta(name='viewport', content='width=device-width, initial-scale=1.0')
+html
+    head
+        title= Pantracker
+        link(rel='stylesheet', href='/stylesheets/productSearch.css')
+
+    body
+        div(id = 'loader')
+        form(method="GET" action="/product/delete")
+                button(type='submit') delete
+        div(id = 'productList')
+            table
+                thead
+                    tr
+                        th product name
+                        th product price
+                        th store name
+                        th store location
+                        th store number
+                        th stock status
+                tbody
+
+    script.
+
+        function httpGet(theUrl) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+            xmlHttp.send( null );
+            return xmlHttp;
+            };
+
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                let elementNames = ['productName', 'productPrice', 'storeName', 'storeLocation', 'storeNo', 'stockStatus'];
+                for (key in elementNames) {
+                        let cell = row.insertCell();
+                        let text = document.createTextNode(element[elementNames[key]]);
+                        cell.appendChild(text);
+                        }
+                    }
+                };
+
+        setInterval(function(){ 
+            
+            try {
+                let table = document.querySelector("tbody");
+                table.innerHTML = "";
+                let xml = httpGet("http://localhost:3000/user/data");
+                let responseText = xml.responseText;
+                let jsonData = JSON.parse(responseText);
+                let productList = jsonData.searchResults;
+                generateTable(table, productList);
+            } catch (e) {
+                console.log(e)
+            }
+
+            if (document.querySelectorAll("tbody > tr").length > 0) {
+                document.getElementById("loader").style.display = "none";
+            }
+
+        }, 3000);
+

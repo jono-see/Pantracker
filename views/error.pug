@@ -1,6 +1,14 @@
-extends layout
+doctype html
+meta(name="viewport", content="width=device-width, initial-scale=1.0")
+html
+head
+    title Error
+    link(rel='stylesheet', href='/stylesheets/error.css')
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    div#home
+        a(href="/")
+            button(type="button")
+    div#heading
+        h1 Error
+    h2 #{message}
