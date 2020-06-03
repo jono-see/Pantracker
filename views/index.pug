@@ -7,9 +7,9 @@ html
 body
     div
         form(method="GET" action="/user/")
-            button(type='submit') login/register
+            button.login(type='submit') Login/Register
         form(method="GET" action="/user/logout")
-            button(type='submit') logout
+            button.login(type='submit') Logout
         div(id = "status")
         
             script.
@@ -46,7 +46,7 @@ body
                 div
                     label Depth:
                     input(type='text', name='depth')
-                button(type='submit') Search
+                button.space(type='submit') Search
         div#postcode-search
             h2 Search for nearby stores
             form(method="GET" action="/stores/search/postcode")
