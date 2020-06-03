@@ -27,17 +27,7 @@ const registerUser = async (req, res, next) => {
                     message: "Error creating account"
                 });
             } else {
-                User.authenticate(req.body.username, req.body.password, function (error, user) {
-                    if (error || !user) {
-                        return res.render('error', {
-                            message:"Error logging in after creating account"
-                        });
-                    } else {
-                        req.session.userId = user.username;
-                        console.log(req.session.userId);
-                        return res.redirect('/');
-                    }
-                });
+                req.session.userId = userData.username;
                 return res.redirect('/');
             }
         });
@@ -52,7 +42,6 @@ const loginUser = (req, res, next) => {
           });
         } else {
             req.session.userId = user.username;
-            console.log(req.session.userId);
             return res.redirect('/');
         }
       });
