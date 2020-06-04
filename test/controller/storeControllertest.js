@@ -13,9 +13,7 @@ let server = require('../../app.js');
 describe('testPostcode', function() {
 
     chai.use(chaiHttp);
-    // I just want to remind that using chai is easier to read
     describe('getValidPostcode', function() {
-            // Test to get all students record
         it("should return valid stores", (done) => {
             chai.request(server)
                 .get('/stores/postcode/3000')
