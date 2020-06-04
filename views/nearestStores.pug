@@ -48,13 +48,14 @@ block content
     div#store_list
         div#layer
             h3 List of nearby stores
-            if closest_stores != "No stores nearby"
-                each store in closest_stores
-                    div(class="store-details")
-                        a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
-                        p #{store.address}
-                        - var formatted_rating = store.rating.toFixed(2);
-                        p Rating: #{formatted_rating}%
-                    br
-            else
-                h2 #{closest_stores}
+            div#list
+                if closest_stores != "No stores nearby"
+                    each store in closest_stores
+                        div(class="store-details")
+                            a(class="store-link" href="/stores/" + store.id target="_blank") #{store.name}
+                            p #{store.address}
+                            - var formatted_rating = store.rating.toFixed(2);
+                            p Rating: #{formatted_rating}%
+                        br
+                else
+                    h2 #{closest_stores}
