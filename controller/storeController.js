@@ -58,7 +58,7 @@ async function distanceMatrix (lat,long,store_id=-1,distance){
                 }
 
                 // Add relevant data to array to be later sent to pug page
-                closest_dist.push({
+                let to_add = {
                     "id":id,
                     "name":store.name,
                     "address":store.address,
@@ -66,7 +66,10 @@ async function distanceMatrix (lat,long,store_id=-1,distance){
                     "rating":rating,
                     "lat":store.latitude,
                     "long":store.longitude
-                });
+                };
+
+                console.log(to_add);
+                closest_dist.push(to_add);
             }
         } else {
             for (i = 0; i < all_dist.length; i++) {
@@ -79,7 +82,7 @@ async function distanceMatrix (lat,long,store_id=-1,distance){
                     }
 
                     // Add relevant data to array to be later sent to pug page
-                    closest_dist.push({
+                    let to_add = {
                         "id":id,
                         "name":store.name,
                         "address":store.address,
@@ -87,7 +90,11 @@ async function distanceMatrix (lat,long,store_id=-1,distance){
                         "rating":rating,
                         "lat":store.latitude,
                         "long":store.longitude
-                    });
+                    };
+
+                    console.log(to_add);
+                    closest_dist.push(to_add);
+
                 } else {
                     break
                 }
