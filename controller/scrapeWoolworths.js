@@ -74,8 +74,7 @@ async function scrapeWoolworths(productName, postcode, depth) {
                 new_product["storeName"] = store.querySelector("div > div > div > h3").innerText + " " + "Woolworths";
                 new_product["storeLocation"] = store.querySelector("div > div > div > h3").innerText;
                 let productStatus = store.querySelector("div > div > div > div > span:nth-child(3)").innerText;
-                // productStatus = productStatus.replace("In Stock", "Yes");
-                // productStatus = productStatus.replace("Out of Stock", "No");
+  
                 new_product["productStatus"] = productStatus;
                 new_product["storeNo"] = "Unknown";
 

@@ -63,24 +63,15 @@ async function scrapeBigW(productName, postcode, depth) {
 
             });
             
-            // console.log(product);
-
-            // await page.waitFor(500);
-
-            // await page.click("a[data-target = '#FindInStore']");
+  
             await page.waitForSelector("#FindInStoreHref");
             await page.evaluate(() => {document.querySelector("#FindInStoreHref").click();}); 
-            // await page.waitForFunction(`document.querySelectorAll("#instoreListing > li").length > 0`);
-            // await page.evaluate(() => {
-            //     document.querySelector("#FindInStoreHref").click()
-            // });
+
 
             await page.waitFor(500);
 
             let products = await page.evaluate(() => {
 
-
-                // document.querySelector("#FindInStoreHref").click();
 
                 let products = [];
 
@@ -97,22 +88,19 @@ async function scrapeBigW(productName, postcode, depth) {
                     } else { 
                         new_product["productStatus"] = "No stock";
                     }
-                    // new_product["productStatus"] = stores[j].querySelector("span[class *= 'statusIcon']").innerText;
+           
                     new_product["storeName"] = stores[j].querySelector("strong").innerText.replace("BIG W", "Big W");
 
-                    // new_product["storeAddress"] = stores[j].querySelector("div[class *= 'addressList']").innerText;
-                    // new_product["storeNo"] = stores[j].querySelector("a[class *= 'callStore']").innerText;
 
                     new_product["storeAddress"] = "Unavailable";
                     new_product["storeNo"] = "Unavailable";
 
-                    // console.log(new_product);
+               
     
                     products.push(new_product);
     
                 };
 
-                // console.log(products);
 
                 return products;
 

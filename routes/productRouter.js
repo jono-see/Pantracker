@@ -5,7 +5,7 @@ var router = express.Router();
 var scrapeOfficeworks = require('../controller/scrapeOfficeworks.js');
 var scrapeWoolworths = require('../controller/scrapeWoolworths.js');
 var scrapeBigW = require('../controller/scrapeBigW.js');
-var products = require("../models/products.js");
+// var products = require("../models/products.js");
 var User = mongoose.model('User');
 // var products = require("../models/stores.js");
 var Stores = mongoose.model('allStores');
@@ -171,5 +171,3 @@ router.get('/delete', function (req, res, next) {
 });
 
 module.exports = router;
-
-// commit
