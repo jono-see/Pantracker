@@ -7,8 +7,12 @@ html
 
     body
         div(id = 'loader')
+        form(method="GET" action="/")
+                button(type='submit') homepage
         form(method="GET" action="/product/delete")
-                button(type='submit') delete
+                button(type='submit', class = "refresh") refresh
+        //- form(method="GET" action="/product/delete")
+        //-         button(type='submit') refresh
         div(id = 'productList')
             table
                 thead
@@ -16,8 +20,8 @@ html
                         th product name
                         th product price
                         th store name
-                        th store location
-                        th store number
+                        //- th store location
+                        //- th store number
                         th stock status
                 tbody
 
@@ -33,10 +37,26 @@ html
         function generateTable(table, data) {
             for (let element of data) {
                 let row = table.insertRow();
-                let elementNames = ['productName', 'productPrice', 'storeName', 'storeLocation', 'storeNo', 'stockStatus'];
+                let elementNames = ['productName', 'productPrice', 'storeName', 'productStatus'];
                 for (key in elementNames) {
                         let cell = row.insertCell();
-                        let text = document.createTextNode(element[elementNames[key]]);
+                        let text = document.createElement("a");
+                        text.innerText = element[elementNames[key]];
+                        if (elementNames[key] == 'productName') {
+                            text.setAttribute('href', element['productUrl']);
+                        }
+                        if (elementNames[key] == 'storeName') {
+                            let store_href = "/stores/" + element['storeId'];
+                            text.setAttribute('href', store_href);
+                        }
+                        if (elementNames[key] == 'productStatus') {
+                            if (element['productStatus'].toUpperCase().includes("IN")) {
+                                text.style.backgroundColor = "green";
+                            };
+                            if (element['productStatus'].toUpperCase().includes("OUT") | element['productStatus'].toUpperCase().includes("NO") | element['productStatus'].toUpperCase().includes("UNAVAILABLE")) {
+                                text.style.backgroundColor = "red";
+                            };
+                        }
                         cell.appendChild(text);
                         }
                     }

@@ -106,7 +106,7 @@ table {
   }
   
   form {
-    color: white;
+    color: black;
     font-family: 'Montserrat-Mediumt', Montserrat;
     font-size: 2.25vh;
     text-shadow: 0.2vh 0.2vw 1.5vh #000000;
@@ -116,7 +116,7 @@ button {
     border-radius:6vh;
     display:inline-block;
     cursor:pointer;
-    color:grey;
+    color:black;
     font-size:2vh;
     font-weight:bold;
     padding:1vh 3.25vw;
@@ -136,3 +136,6 @@ form input[type=text] {
     z-index: 10;
 }
 
+/* #refresh {
+  color: white
+} */

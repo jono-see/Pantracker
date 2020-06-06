@@ -4,11 +4,11 @@ async function scrapeBigW(productName, postcode, depth) {
 
     let puppeteerArgs = [
         '--no-sandbox',
-        '--user-agent="let me scrape u plz"'
+        '--user-agent="user"'
     ];
 
-    locationUrl = "https://www.bigw.com.au/";
-    productUrl = "https://www.bigw.com.au/search/?category=&text=" + productName;
+    let locationUrl = "https://www.bigw.com.au/";
+    let productUrl = "https://www.bigw.com.au/search/?category=&text=" + productName;
 
     let browser = await puppeteer.launch({
         headless: true,
@@ -17,25 +17,26 @@ async function scrapeBigW(productName, postcode, depth) {
     
     let page = await browser.newPage();
 
-    await page.goto(locationUrl, { 'waitUntil':'networkidle2' });
-
-    await page.click("#locationLink > span");
+    await page.goto(locationUrl, { 'waitUntil':'networkidle2', timeout: 0 });
+    
+    await page.click("#locationLink");
     await page.type("#userLocationInput", postcode);
-    await page.waitFor(500);
-    await page.click("ul[class *= 'autocomplete'] > :first-child");
+    await page.waitForFunction(`document.querySelectorAll(".ui-menu-item").length > 0`);
+    await page.click("li[class = 'ui-menu-item']");
 
     await page.goto(productUrl, { 'waitUntil':'networkidle2' });
-    await page.waitFor(500);
+    await page.waitForFunction(`document.querySelectorAll(".productSlot").length > 0`);
 
     let hrefs = await page.evaluate(() => {
 
-        let productSlots = document.querySelectorAll("div[class *= 'productSlot']");
-        productSlots = [...productSlots];
-        hrefs = productSlots.map(x => x.querySelector("div > div > a").getAttribute("href"));
+        let productSlots = [...document.querySelectorAll("div[class = 'productSlot']")];
+        let hrefs = productSlots.map(x => x.querySelector("div > div > a").getAttribute("href"));
 
         return hrefs;
 
     });
+
+    // console.log(hrefs);
 
     let products_list = [];
 
@@ -43,9 +44,11 @@ async function scrapeBigW(productName, postcode, depth) {
 
         try {
 
-            console.log(hrefs[i]);
+            console.log("https://www.bigw.com.au/" + hrefs[i]);
 
-            await page.goto("https://www.bigw.com.au" + hrefs[i], { 'waitUntil':'networkidle2' });
+            let product_search_url = "https://www.bigw.com.au" + hrefs[i];
+
+            await page.goto(product_search_url, { 'waitUntil':'networkidle2' });
 
             await page.waitFor(100);
 
@@ -59,30 +62,57 @@ async function scrapeBigW(productName, postcode, depth) {
                 return product;
 
             });
+            
+            // console.log(product);
 
-            await page.waitFor(100);
+            // await page.waitFor(500);
 
-            await page.click("li[class *= 'instore']");
+            // await page.click("a[data-target = '#FindInStore']");
+            await page.waitForSelector("#FindInStoreHref");
+            await page.evaluate(() => {document.querySelector("#FindInStoreHref").click();}); 
+            // await page.waitForFunction(`document.querySelectorAll("#instoreListing > li").length > 0`);
+            // await page.evaluate(() => {
+            //     document.querySelector("#FindInStoreHref").click()
+            // });
+
+            await page.waitFor(500);
 
             let products = await page.evaluate(() => {
 
+
+                // document.querySelector("#FindInStoreHref").click();
+
                 let products = [];
 
-                stores = document.querySelectorAll("li[class = 'bordered IconlistView']");
-                stores = [...stores];
+                let stores = [...document.querySelectorAll("#instoreListing > li")];
+
+                // console.log(stores);
 
                 for (j = 0; j < stores.length; j++) {
                 
-                    var new_product = {}
+                    var new_product = {};
 
-                    new_product["productStatus"] = stores[j].querySelector("span[class *= 'statusIcon']").innerText;
-                    new_product["storeName"] = stores[j].querySelector("strong").innerText;
-                    new_product["storeAddress"] = stores[j].querySelector("div[class *= 'addressList']").innerText;
-                    new_product["storeNo"] = stores[j].querySelector("a[class *= 'callStore']").innerText;
+                    if (stores[j].querySelector("a[class *= 'tock']").outerHTML.includes("Instock")) { 
+                        new_product["productStatus"] = "In Stock";
+                    } else { 
+                        new_product["productStatus"] = "No stock";
+                    }
+                    // new_product["productStatus"] = stores[j].querySelector("span[class *= 'statusIcon']").innerText;
+                    new_product["storeName"] = stores[j].querySelector("strong").innerText.replace("BIG W", "Big W");
+
+                    // new_product["storeAddress"] = stores[j].querySelector("div[class *= 'addressList']").innerText;
+                    // new_product["storeNo"] = stores[j].querySelector("a[class *= 'callStore']").innerText;
+
+                    new_product["storeAddress"] = "Unavailable";
+                    new_product["storeNo"] = "Unavailable";
+
+                    // console.log(new_product);
     
                     products.push(new_product);
     
                 };
+
+                // console.log(products);
 
                 return products;
 
@@ -91,13 +121,14 @@ async function scrapeBigW(productName, postcode, depth) {
             for (k = 0; k < products.length; k++) {
                 products[k]["productPrice"] = product["productPrice"];
                 products[k]["productName"] = product["productName"];
+                products[k]["productUrl"] = product_search_url;
             };
 
             products.map(x => products_list.push(x));
 
         } catch(err) {
 
-            console.log(error);
+            console.log(err);
 
         }
 
@@ -105,11 +136,13 @@ async function scrapeBigW(productName, postcode, depth) {
 
     await browser.close();
 
+
+
     return products_list;
 
 };
 
-// scrapeBigW("Carrot", "3150", "5").then((val) => console.log(val));
+// scrapeBigW("Carrot", "3150", 3).then((val) => console.log(val));
 
 module.exports = scrapeBigW;
 

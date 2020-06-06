@@ -4,7 +4,7 @@ async function scrapeOfficeworks(productName, postcode, depth) {
 
     let puppeteerArgs = [
         '--no-sandbox',
-        '--user-agent="let me scrape u plz"'
+        '--user-agent="user"'
     ];
 
     let storelocator_url = "https://www.officeworks.com.au/shop/officeworks/storelocator/" + postcode;
@@ -62,11 +62,13 @@ async function scrapeOfficeworks(productName, postcode, depth) {
                     productStatus = document.querySelectorAll("div[class *= 'ProductAvailability'] > strong")[1].innerText;
                     storeName = document.querySelector("a[data-ref = 'store-name']").innerText;
                     storeLocation = document.querySelector("div[class *= 'ProductAvailability'] > small").innerText;
-                    product = {"productName": productName, "productPrice": productPrice, "productStatus": productStatus, "storeName": storeName, "storeLocation": storeLocation, "storeNo": "Unknown"};
+                    product = {"productName": productName, "productPrice": productPrice, "productStatus": productStatus, "storeName": storeName, "storeLocation": storeLocation, "storeNo": "Unavailable"};
             
                     return product;
             
                 });
+
+                product["productUrl"] = "https://www.officeworks.com.au" + hrefs[i];
 
                 products.push(product);
 
@@ -80,6 +82,8 @@ async function scrapeOfficeworks(productName, postcode, depth) {
 
     };
 
+
+
     await browser.close();
 
     return products;
@@ -88,4 +92,4 @@ async function scrapeOfficeworks(productName, postcode, depth) {
 
 module.exports = scrapeOfficeworks;
 
-// scrapeOfficeworks("Apple", "3150", 5).then((val) => console.log(val));
+// scrapeOfficeworks("Apple", "3150", 1).then((val) => console.log(val));

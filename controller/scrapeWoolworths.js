@@ -4,7 +4,7 @@ async function scrapeWoolworths(productName, postcode, depth) {
 
     let puppeteerArgs = [
         '--no-sandbox',
-        '--user-agent="let me scrape u plz"'
+        '--user-agent="user"'
     ];
 
     let searchUrl = 'https://www.woolworths.com.au/shop/search/products?searchTerm=' + productName;
@@ -34,22 +34,23 @@ async function scrapeWoolworths(productName, postcode, depth) {
 
         await page.goto("https://www.woolworths.com.au/" + hrefs[i], { 'waitUntil':'networkidle2' });
 
-        let product = await page.evaluate(() => {
+        let productUrl = "https://www.woolworths.com.au/" + hrefs[i];
+
+        let product = await page.evaluate((productUrl) => {
 
             productPrice = document.querySelector("shared-price").innerText.replace(/\s+/g, '.');
             productName = document.querySelector("h1[class *= 'title']").innerText;
             
-            product = {"productName": productName, "productPrice": productPrice};
+            product = {"productName": productName, "productPrice": productPrice, "productUrl": productUrl};
 
             return product;
 
-        });
+        }, productUrl);
 
         await page.click("span[class = 'stockChecker-label']");
         await page.waitFor(100);
         await page.type("#pickupAddressSelector", postcode);
         await page.keyboard.press('Enter');
-        // debugger;
         await page.waitFor(1000);
 
         let storesLength = await page.evaluate(() => {
@@ -70,9 +71,12 @@ async function scrapeWoolworths(productName, postcode, depth) {
 
                 new_product = {...product};
 
-                new_product["storeName"] = "Woolworths";
+                new_product["storeName"] = store.querySelector("div > div > div > h3").innerText + " " + "Woolworths";
                 new_product["storeLocation"] = store.querySelector("div > div > div > h3").innerText;
-                new_product["stockStatus"] = store.querySelector("div > div > div > div > span:nth-child(3)").innerText;
+                let productStatus = store.querySelector("div > div > div > div > span:nth-child(3)").innerText;
+                // productStatus = productStatus.replace("In Stock", "Yes");
+                // productStatus = productStatus.replace("Out of Stock", "No");
+                new_product["productStatus"] = productStatus;
                 new_product["storeNo"] = "Unknown";
 
                 products.push(new_product);
@@ -94,7 +98,7 @@ async function scrapeWoolworths(productName, postcode, depth) {
 };
 
 
-// scrapeWoolworths("Apple", "3000", "5").then((val) => console.log(val));
+// scrapeWoolworths("Apple", "3000", 5).then((val) => console.log(val));
 
 module.exports = scrapeWoolworths;
 

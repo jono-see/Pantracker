@@ -19,7 +19,9 @@ var UserSchema = new Schema({
       storeNo: String,
       productName: String,
       productPrice: String,
-      productStatus: String
+      productStatus: String,
+      productUrl: String,
+      storeId: String
   }]
 }, {collection: 'User'});
 
