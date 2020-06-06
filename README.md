@@ -35,8 +35,8 @@ Allows the registration and authentication of a user, if they provide a valid em
 Users can log-in or register from this page:
 - https://info30005-pantracker.herokuapp.com/user/
 
-Sample login:
-Username: test@test.com
+Sample login: <br/>
+Username: test@test.com <br/>
 Password: test
 
 #### Associated files
