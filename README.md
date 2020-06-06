@@ -24,10 +24,10 @@ sample input would be ```{"productName": "tomato", "postcode": "3000", "depth": 
 clear the products that have been searched for using
 
 ### User functionality
-allows the registration and authentication of a user. Links user product searches to the account they were made on.
+Allows the registration and authentication of a user, if they provide a valid email address and password. Users' searches are linked to their accounts to ensure all website users do not receive the same search results.
 
 - https://info30005-pantracker.herokuapp.com/user/register (POST)
-register with a username and password. password is hashed before it is stored in the 'User' collection.
+Register with an email and password. Password is hashed before it is stored in the 'User' collection.
 input: ```{username: username, password, password}```
 
 - https://info30005-pantracker.herokuapp.com/user/login (POST)
@@ -47,17 +47,19 @@ Links to stores are available from the "Nearest stores" page, outlined below.
 
 
 ### Nearest stores
-Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
+Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode and search radius in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
 
-https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]
+https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]/[radius]
 
-On this page a map will be displayed, centred at the postcode they searched for, showing the 5 nearest stores to that postcode. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
+On this page a map will be displayed, centred at the postcode they searched for, showing any stores that fall within the radius they specified. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
 
 ### URL parameters
 
 [id] - store id, numbers between 1 and XX for this dataset
 
 [postcode] - any victorian postcode, in format 3XXX
+
+[radius] - search radius in km for nearest stores to be displayed within, any number
 
 
 
@@ -82,7 +84,7 @@ This project is linked to MongoDB, using two collections. The first, "AllStores"
  ```
  {
     "_id":"5ec0463dd151ccc8fca35ad6"            // automatically generated user id
-    "name":"michael"                            // username
+    "username":"test@test.com"                  // email for log-in
     "password":                                 // hashed password
     "searchResults":Array                       // the current results of the user's search, to get around limits on heroku
  }
