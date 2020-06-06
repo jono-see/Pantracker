@@ -26,7 +26,7 @@ clear the products that have been searched for using
 ### User Registration
 Allows the registration and authentication of a user, if they provide a valid email address and password. Users' searches are linked to their accounts to ensure all website users do not receive the same search results.
 
-- https://info30005-pantracker.herokuapp.com/user/? 
+- https://info30005-pantracker.herokuapp.com/user/
 
 Sample login:
 Username: test@test.com
@@ -43,6 +43,7 @@ Allows users to find out more information about a store (address, location on ma
 
 Available at:
 - https://info30005-pantracker.herokuapp.com/stores/[id]
+
 For example: https://info30005-pantracker.herokuapp.com/stores/167
 
 Links to stores are available from the "Nearest stores" page, outlined below.
@@ -57,6 +58,7 @@ Models:         /models/stores.js
 Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode and search radius in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
 
 - https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]/[radius]
+
 For example: https://info30005-pantracker.herokuapp.com/stores/postcode/3000/5
 
 On this page a map will be displayed, centred at the postcode they searched for, showing any stores that fall within the radius they specified. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
@@ -75,6 +77,10 @@ Models:         /models/stores.js
 
 [radius] - search radius in km for nearest stores to be displayed within, any number
 
+
+
+## Testing
+Jono to add here
 
 
 ## Data Sources
