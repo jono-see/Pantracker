@@ -92,7 +92,12 @@ Models:         /models/stores.js<br/>
 
 
 ## Testing
-Jono to add here
+Testing focused on the store search functionality.
+Test 1: Tests a valid postcode for nearby search
+Test 2: Tests a valid store id
+Test 3: Tests an invalid id
+
+To test run: "npm test"
 
 
 ## Data Sources
