@@ -1,15 +1,13 @@
 # Pantracker
+## Important Note
+
+Even though it is linked to Heroku, the app should be run locally to ensure all functionality works properly. 
+
+The 'product search'  front end functionality does not work on heroku. Because Heroku requires a response within 30 seconds before throwing a H12 error, the 'product/search' functionality re-renders the homepage before completing the web scraping in the background. This means for the front end,  we must keep checking whether results have been returned, this checking is done using Javascript in the 'productSearch.pug' file. This works fine when running the app locally and renders the results without an issue. Furthermore, when running the app online 'searchResults' are returned to '/user/data'. However, for some reason they are not rendered. A similar issue occurs when trying to render "logged in as 'username'". The username value exists in the backend under 'user/sessionId', but is not rendered in the 'index.pug' file.
+
+Furthermore, for an unknown reason, some elements on the front page display incorrectly on Heroku, despite working properly when run locally on several different devices. Some elements will show when they are not supposed to, allowing users to search when they are not logged in.
 
 ## Key functionalities
-
-issues:
-
-Currently the 'product search'  front end functionality is only working locally. Because Heroku requires a response within 30 seconds before throwing a H12 error, the 'product/search' functionality re renders the homepage before completing the web scraping in the background. This means for the front end,  we must keep checking whether results have been returned, this checking is done using Javascript in the 'productSearch.pug' file. This works fine when running the app locally and renders the results without an issue. Furthermore, when running the app online 'searchResults' are returned to '/user/data'. However, for some reason they are not rendered. A similar issue occurs when trying to render "logged in as 'username'". The username value exists in the backend under 'user/sessionId', but is not rendered in the 'index.pug' file.
-
-Summary:
-
-the '/' page and the '/product/search' page might not be working properly on heroku. the '/' page is meant to show which user is logged in and the '/product/search' page might forever load.
-this might be because issues with heroku and '.script' in 'pug.js' files as there are no issues when the app is run locally. the app was build in this way, however, because heroku requires explicit routing responses within 30 seconds, therefore results from the webscraping must be checked for constantly. that is why this particular design pattern was used.
 
 ### Product Search
 Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
@@ -33,10 +31,10 @@ Username: test@test.com
 Password: test
 
 #### Associated files
-Views:          /views/user.pug
-Routes:         /routes/userRouter.js
-Controllers:    /controllers/userController.js
-Models:         /models/user.js
+Views:          /views/user.pug<br/>
+Routes:         /routes/userRouter.js<br/>
+Controllers:    /controllers/userController.js<br/>
+Models:         /models/user.js<br/>
 
 ### Store Details and Rating
 Allows users to find out more information about a store (address, location on map, rating), then rate the store if they found the products they were looking for there. Users can only rate each store once daily, handled by browser cookies. This page also displays the 3 stores nearest to the store being viewed.
