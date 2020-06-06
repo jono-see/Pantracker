@@ -6,12 +6,12 @@ issues:
 
 Currently the 'product search'  front end functionality is only working locally. Because Heroku requires a response within 30 seconds before throwing a H12 error, the 'product/search' functionality re renders the homepage before completing the web scraping in the background. This means for the front end,  we must keep checking whether results have been returned, this checking is done using Javascript in the 'productSearch.pug' file. This works fine when running the app locally and renders the results without an issue. Furthermore, when running the app online 'searchResults' are returned to '/user/data'. However, for some reason they are not rendered. A similar issue occurs when trying to render "logged in as 'username'". The username value exists in the backend under 'user/sessionId', but is not rendered in the 'index.pug' file.
 
-summary:
+Summary:
 
 the '/' page and the '/product/search' page might not be working properly on heroku. the '/' page is meant to show which user is logged in and the '/product/search' page might forever load.
 this might be because issues with heroku and '.script' in 'pug.js' files as there are no issues when the app is run locally. the app was build in this way, however, because heroku requires explicit routing responses within 30 seconds, therefore results from the webscraping must be checked for constantly. that is why this particular design pattern was used.
 
-### Search function
+### Product Search
 Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
 
 The scraping functionality uses the "puppeteer" package which is aproximately 300mb, thus it is included in the .gitignore file. Furthermore, to use the package on a cloud service, like Heroku, it requires the installation of a buildpack (heroku buildpacks:add jontewks/puppeteer). Thus the final push to the heroku server was done through the Heroku CLI and not through Github.
@@ -23,35 +23,49 @@ sample input would be ```{"productName": "tomato", "postcode": "3000", "depth": 
 - https://info30005-pantracker.herokuapp.com/product/delete (GET)
 clear the products that have been searched for using
 
-### User functionality
+### User Registration
 Allows the registration and authentication of a user, if they provide a valid email address and password. Users' searches are linked to their accounts to ensure all website users do not receive the same search results.
 
-- https://info30005-pantracker.herokuapp.com/user/register (POST)
-Register with an email and password. Password is hashed before it is stored in the 'User' collection.
-input: ```{username: username, password, password}```
+- https://info30005-pantracker.herokuapp.com/user/? 
 
-- https://info30005-pantracker.herokuapp.com/user/login (POST)
-Authenticates a username and password. If authenticated, stores a user unique session id in ```req.session.userId```. 
-input: ```{username: username, password, password}```
+Sample login:
+Username: test@test.com
+Password: test
 
-- https://info30005-pantracker.herokuapp.com/user/data (GET)
-Returns a list of product searches a user has made.
+#### Associated files
+Views:          /views/user.pug
+Routes:         /routes/userRouter.js
+Controllers:    /controllers/userController.js
+Models:         /models/user.js
 
-### Store details and rating
+### Store Details and Rating
 Allows users to find out more information about a store (address, location on map, rating), then rate the store if they found the products they were looking for there. Users can only rate each store once daily, handled by browser cookies. This page also displays the 3 stores nearest to the store being viewed.
 
 Available at:
-https://info30005-pantracker.herokuapp.com/stores/[id]
+- https://info30005-pantracker.herokuapp.com/stores/[id]
+For example: https://info30005-pantracker.herokuapp.com/stores/167
 
 Links to stores are available from the "Nearest stores" page, outlined below.
 
+#### Associated files
+Views:          /views/storePage.pug
+Routes:         /routes/storeRouter.js
+Controllers:    /controllers/storeController.js
+Models:         /models/stores.js
 
-### Nearest stores
+### Nearest Stores
 Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode and search radius in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
 
-https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]/[radius]
+- https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]/[radius]
+For example: https://info30005-pantracker.herokuapp.com/stores/postcode/3000/5
 
 On this page a map will be displayed, centred at the postcode they searched for, showing any stores that fall within the radius they specified. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
+
+#### Associated files
+Views:          /views/nearestStores.pug
+Routes:         /routes/storeRouter.js
+Controllers:    /controllers/storeController.js
+Models:         /models/stores.js
 
 ### URL parameters
 
