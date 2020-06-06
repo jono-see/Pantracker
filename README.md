@@ -10,20 +10,29 @@ Furthermore, for an unknown reason, some elements on the front page display inco
 ## Key functionalities
 
 ### Product Search
-Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW).
+Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW). On the left side of the homepage (https://info30005-pantracker.herokuapp.com/), once logged in (see below for user registration information) users can search for product availability by entering a product name, location, and depth (how many results to return from each store). The online stores of Woolworths, Officeworks, and Big W are then searched using the paramters provided.
 
 The scraping functionality uses the "puppeteer" package which is aproximately 300mb, thus it is included in the .gitignore file. Furthermore, to use the package on a cloud service, like Heroku, it requires the installation of a buildpack (heroku buildpacks:add jontewks/puppeteer). Thus the final push to the heroku server was done through the Heroku CLI and not through Github.
 
-- https://info30005-pantracker.herokuapp.com/product/search (POST)
-searches for a product, given a specific "productName", "postcode" and "depth" which limits the number of results found.
-sample input would be ```{"productName": "tomato", "postcode": "3000", "depth": "1"}```
+#### Links
+Search terms entered on homepage:
+- https://info30005-pantracker.herokuapp.com/
 
-- https://info30005-pantracker.herokuapp.com/product/delete (GET)
-clear the products that have been searched for using
+Redirects users to this page:
+- https://info30005-pantracker.herokuapp.com/product/search/
+
+
+#### Associated files
+Views:          /views/productSearch.pug<br/>
+Routes:         /routes/productRouter.js<br/>
+Controllers:    /controllers/scrapeBigW.js, /controllers/scrapeOfficeworks.js, /controllers/scrapeWoolworths.js<br/>
+Models:         /models/user.js<br/>
 
 ### User Registration
 Allows the registration and authentication of a user, if they provide a valid email address and password. Users' searches are linked to their accounts to ensure all website users do not receive the same search results.
 
+#### Links
+Users can log-in or register from this page:
 - https://info30005-pantracker.herokuapp.com/user/
 
 Sample login:
@@ -39,11 +48,12 @@ Models:         /models/user.js<br/>
 ### Store Details and Rating
 Allows users to find out more information about a store (address, location on map, rating), then rate the store if they found the products they were looking for there. Users can only rate each store once daily, handled by browser cookies. This page also displays the 3 stores nearest to the store being viewed.
 
-Available at:
+#### Links
+Store details can be found on this page:
 - https://info30005-pantracker.herokuapp.com/stores/[id]
 For example: https://info30005-pantracker.herokuapp.com/stores/167
 
-Links to stores are available from the "Nearest stores" page, outlined below.
+Links to stores are available from the "Nearest Stores" page, outlined below, or the "Product search" pages, outlined above.
 
 #### Associated files
 Views:          /views/storePage.pug<br/>
@@ -52,13 +62,18 @@ Controllers:    /controllers/storeController.js<br/>
 Models:         /models/stores.js<br/>
 
 ### Nearest Stores
-Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode and search radius in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the following URL:
+Allows users to find the nearest 5 stores to a postcode they provide. On the homepage (https://info30005-pantracker.herokuapp.com/), users can enter a postcode and search radius in the search bar on the right (under SEARCH FOR NEARBY STORES) then search, which will redirect them to the appropriate page.
 
+On this page a map will be displayed, centred at the postcode they searched for, showing any stores that fall within the radius they specified. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
+
+#### Links
+Search terms entered on homepage:
+- https://info30005-pantracker.herokuapp.com/
+
+Redirects users to this page:
 - https://info30005-pantracker.herokuapp.com/stores/postcode/[postcode]/[radius]
 
 For example: https://info30005-pantracker.herokuapp.com/stores/postcode/3000/5
-
-On this page a map will be displayed, centred at the postcode they searched for, showing any stores that fall within the radius they specified. The store names will also be listed beneath the map, with links to the "Store details and rating" pages. Clicking on the markers on the map will also show users more info about the store at that location and provide them with a link to the relevant "Store details and rating" page.
 
 #### Associated files
 Views:          /views/nearestStores.pug<br/>
