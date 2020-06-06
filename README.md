@@ -10,7 +10,9 @@ Furthermore, for an unknown reason, some elements on the front page display inco
 ## Key functionalities
 
 ### Product Search
-Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW). On the left side of the homepage (https://info30005-pantracker.herokuapp.com/), once logged in (see below for user registration information) users can search for product availability by entering a product name, location, and depth (how many results to return from each store). The online stores of Woolworths, Officeworks, and Big W are then searched using the paramters provided.
+Allows users to search for products from a number of different stores nearby (currently works for Woolworths, Officeworks and BigW). On the left side of the homepage (https://info30005-pantracker.herokuapp.com/), once logged in (see below for user registration information) users can search for product availability by entering a product name, location, and depth (how many results to return from each store). The online stores of Woolworths, Officeworks, and Big W are then searched using the paramters provided. 
+
+Note: the search is quite finicky, it is prefered if you set `depth = 1`.
 
 The scraping functionality uses the "puppeteer" package which is aproximately 300mb, thus it is included in the .gitignore file. Furthermore, to use the package on a cloud service, like Heroku, it requires the installation of a buildpack (heroku buildpacks:add jontewks/puppeteer). Thus the final push to the heroku server was done through the Heroku CLI and not through Github.
 
